@@ -1,10 +1,16 @@
-package com.wap.entity;
+package com.wap.dto;
 
-import com.wap.entity.interfaces.IEntity;
+import com.wap.dto.interfaces.AbstractDto;
+import com.wap.entity.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserEntity extends IEntity {
+public class UserDto extends AbstractDto<UserEntity, UserDto> {
+
+    public UserDto() {
+        super.setDtoClass(UserDto.class);
+        super.setEntityClass(UserEntity.class);
+    }
 
     @Getter
     @Setter
@@ -25,5 +31,4 @@ public class UserEntity extends IEntity {
     @Getter
     @Setter
     private String password;
-
 }

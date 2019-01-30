@@ -1,10 +1,13 @@
 package com.wap.entity;
 
+
 import com.wap.entity.interfaces.IEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserEntity extends IEntity {
+import java.util.Date;
+
+public class TaskEntity extends IEntity {
 
     @Getter
     @Setter
@@ -16,14 +19,21 @@ public class UserEntity extends IEntity {
 
     @Getter
     @Setter
-    private String lastname;
+    private Date requiredBy;
 
     @Getter
     @Setter
-    private String username;
+    private CategoryEntity category;
 
     @Getter
     @Setter
-    private String password;
+    private int priority;
 
+    @Getter
+    @Setter
+    private UserEntity user;
+
+    @Getter
+    @Setter
+    private boolean isCompleted;
 }
