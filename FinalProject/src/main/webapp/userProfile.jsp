@@ -17,6 +17,12 @@
                     lat = res.data.lat;
                     longg = res.data.longg;
 
+                    $("#nameP").text(res.data.name);
+                    $("#lastnameP").text(res.data.lastname);
+                    $("#usernameP").text(res.data.username);
+                    $("#mailP").text(res.data.mail);
+                    $("#phoneP").text(res.data.phone);
+
                     function initialize() {
                         var prop = {
                             center: new google.maps.LatLng(lat, longg),
@@ -59,6 +65,30 @@
             </div>
             <div class="col-md-3">
                 <p id="lastnameP"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p>Username</p>
+            </div>
+            <div class="col-md-3">
+                <p id="usernameP"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p>Mail</p>
+            </div>
+            <div class="col-md-3">
+                <p id="mailP"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p>Phone</p>
+            </div>
+            <div class="col-md-3">
+                <p id="phoneP"></p>
             </div>
         </div>
     </div>
