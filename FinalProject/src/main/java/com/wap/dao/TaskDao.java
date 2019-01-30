@@ -4,6 +4,7 @@ import com.wap.db.WapConnection;
 import com.wap.dto.CategoryDto;
 import com.wap.dto.TaskDto;
 import com.wap.dto.UserDto;
+import com.wap.model.WapResult;
 import com.wap.model.WapResultData;
 import lombok.var;
 
@@ -13,6 +14,67 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TaskDao {
+
+    public WapResult save(TaskDto taskDto) {
+        var result = new WapResult();
+        try {
+            String query = "INSERT INTO wap.public.task (id, name, required_by, id_category, priority, id_user, is_completed) VALUES  (DEFAULT,?,?,?,?,?,?)";
+            PreparedStatement ps = WapConnection.getConnection().prepareStatement(query);
+
+            ps.setString(1, taskDto.getName());
+            ps.setDate(2, taskDto.getRequiredBy());
+            ps.setInt(3, taskDto.getCategory().getId());
+            ps.setInt(4, taskDto.getPriority());
+            ps.setInt(5, taskDto.getUser().getId());
+            ps.setBoolean(6, taskDto.isCompleted());
+
+            ps.executeUpdate();
+            result.success();
+
+        } catch (SQLException e) {
+
+        }
+        return result;
+    }
+
+    public WapResult delete(int id) {
+        var result = new WapResult();
+        try {
+            String query = "DELETE FROM wap.public.task WHERE id=?";
+            PreparedStatement ps = WapConnection.getConnection().prepareStatement(query);
+
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+            result.success();
+
+        } catch (SQLException e) {
+
+        }
+        return result;
+    }
+
+    public WapResult update(TaskDto taskDto) {
+        var result = new WapResult();
+        try {
+            String query = "UPDATE wap.public.task SET name =?, required_by=?, id_category =?, priority=?,id_user=?,is_completed=? WHERE id=?";
+            PreparedStatement ps = WapConnection.getConnection().prepareStatement(query);
+
+            ps.setString(1, taskDto.getName());
+            ps.setDate(2, taskDto.getRequiredBy());
+            ps.setInt(3, taskDto.getCategory().getId());
+            ps.setInt(4, taskDto.getPriority());
+            ps.setInt(5, taskDto.getUser().getId());
+            ps.setBoolean(6, taskDto.isCompleted());
+            ps.setInt(7, taskDto.getId());
+
+            ps.executeUpdate();
+            result.success();
+        } catch (SQLException e) {
+
+        }
+        return result;
+    }
 
     public WapResultData<ArrayList<TaskDto>> getAllTask(boolean orderedByRequiredBy) {
         var result = new WapResultData<ArrayList<TaskDto>>();
@@ -25,8 +87,7 @@ public class TaskDao {
                 query += " ORDER BY t.priority ASC";
             }
 
-            PreparedStatement ps = WapConnection.getConnection()
-                    .prepareStatement(query);
+            PreparedStatement ps = WapConnection.getConnection().prepareStatement(query);
 
             ResultSet rs = ps.executeQuery();
             result.setData(new ArrayList<TaskDto>());
