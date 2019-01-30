@@ -1,17 +1,13 @@
 package com.wap.entity;
 
 
-import com.wap.entity.interfaces.IEntity;
+import com.wap.entity.interfaces.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 
-public class TaskEntity extends IEntity {
-
-    @Getter
-    @Setter
-    private int id;
+public class TaskEntity extends AbstractEntity {
 
     @Getter
     @Setter

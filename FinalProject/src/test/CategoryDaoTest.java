@@ -1,4 +1,5 @@
 import com.wap.dao.CategoryDao;
+import com.wap.dao.NoteDao;
 import com.wap.dao.TaskDao;
 import com.wap.dto.CategoryDto;
 import com.wap.dto.TaskDto;
@@ -44,6 +45,10 @@ public class CategoryDaoTest {
       //  taskDao.update(taskDto);
 
       //  taskDao.delete(101);
+
+        NoteDao noteDao = new NoteDao();
+
+        var notes =noteDao.getNotesByIdTask(1);
 
         int a =5;
     }

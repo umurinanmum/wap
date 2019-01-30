@@ -4,9 +4,15 @@ import com.wap.entity.interfaces.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-public class CategoryEntity extends AbstractEntity {
+import java.sql.Date;
+
+public class NoteEntity extends AbstractEntity {
 
     @Getter
     @Setter
-    private String name;
+    private String note;
+
+    @Getter
+    @Setter
+    private Date date;
 }

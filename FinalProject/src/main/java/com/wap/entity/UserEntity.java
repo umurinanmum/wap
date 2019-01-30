@@ -1,14 +1,10 @@
 package com.wap.entity;
 
-import com.wap.entity.interfaces.IEntity;
+import com.wap.entity.interfaces.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UserEntity extends IEntity {
-
-    @Getter
-    @Setter
-    private int id;
+public class UserEntity extends AbstractEntity {
 
     @Getter
     @Setter
@@ -25,5 +21,25 @@ public class UserEntity extends IEntity {
     @Getter
     @Setter
     private String password;
+
+    @Getter
+    @Setter
+    private String mail;
+
+    @Getter
+    @Setter
+    private String phone;
+
+    @Getter
+    @Setter
+    private String lat;
+
+    @Getter
+    @Setter
+    private String longg;
+
+    @Getter
+    @Setter
+    private TeamEntity team;
 
 }

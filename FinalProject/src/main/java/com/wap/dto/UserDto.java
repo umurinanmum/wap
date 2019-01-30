@@ -14,10 +14,6 @@ public class UserDto extends AbstractDto<UserEntity, UserDto> {
 
     @Getter
     @Setter
-    private int id;
-
-    @Getter
-    @Setter
     private String name;
 
     @Getter
@@ -31,4 +27,24 @@ public class UserDto extends AbstractDto<UserEntity, UserDto> {
     @Getter
     @Setter
     private String password;
+
+    @Getter
+    @Setter
+    private String mail;
+
+    @Getter
+    @Setter
+    private String phone;
+
+    @Getter
+    @Setter
+    private String lat;
+
+    @Getter
+    @Setter
+    private String longg;
+
+    @Getter
+    @Setter
+    private TeamDto team;
 }

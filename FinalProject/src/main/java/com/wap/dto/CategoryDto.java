@@ -14,9 +14,5 @@ public class CategoryDto extends AbstractDto<CategoryEntity, CategoryDto> {
 
     @Getter
     @Setter
-    private int id;
-
-    @Getter
-    @Setter
     private String name;
 }

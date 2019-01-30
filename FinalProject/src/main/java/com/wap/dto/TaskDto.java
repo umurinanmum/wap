@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 
 public class TaskDto extends AbstractDto<TaskEntity,TaskDto> {
@@ -14,10 +15,6 @@ public class TaskDto extends AbstractDto<TaskEntity,TaskDto> {
         super.setDtoClass(TaskDto.class);
         super.setEntityClass(TaskEntity.class);
     }
-
-    @Getter
-    @Setter
-    private int id;
 
     @Getter
     @Setter
@@ -42,4 +39,8 @@ public class TaskDto extends AbstractDto<TaskEntity,TaskDto> {
     @Getter
     @Setter
     private boolean isCompleted;
+
+    @Getter
+    @Setter
+    public ArrayList<NoteDto> noteList;
 }

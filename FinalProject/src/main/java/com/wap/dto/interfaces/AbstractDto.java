@@ -1,13 +1,18 @@
 package com.wap.dto.interfaces;
 
-import com.wap.entity.interfaces.IEntity;
+import com.wap.entity.interfaces.AbstractEntity;
+import lombok.Getter;
+import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
-public abstract class AbstractDto<TEntity extends IEntity, TDto extends AbstractDto> {
+public abstract class AbstractDto<TEntity extends AbstractEntity, TDto extends AbstractDto> {
 
     private Class<TDto> dtoClass;
     private Class<TEntity> entityClass;
 
+    @Getter
+    @Setter
+    private int id;
 
     private ModelMapper modelMapper = new ModelMapper();
 
