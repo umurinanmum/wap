@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            var source = {
+                name: "test from js",
+                requiredBy: 1547704800000,
+                category: {
+                    id: 2,
+                    name: "work"
+                },
+                priority: 1,
+                user: {
+                    id: 1
+                },
+                noteList: null,
+                completed: true
+            };
+
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:8080/FinalProject_war/Task',
+                dataType: 'JSON',
+                data: {
+                    source: JSON.stringify(source)
+                },
+                success: function (data) {
+                        console.log(data);
+                    },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+        });
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

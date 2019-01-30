@@ -17,9 +17,7 @@ public class CategoryController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         CategoryService categoryService = new CategoryService();
         var result = categoryService.getAll();
-
-        var resultJson = JsonHelper.toJson(result);
-        resp.getWriter().write(resultJson);
+        resp.getWriter().write(result.asJson());
 
     }
 }

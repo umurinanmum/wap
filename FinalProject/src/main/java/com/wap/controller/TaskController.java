@@ -1,14 +1,14 @@
 package com.wap.controller;
 
-import com.wap.dao.TaskDao;
 import com.wap.dto.TaskDto;
 import com.wap.enums.StatusCode;
 import com.wap.helper.JsonHelper;
 import com.wap.helper.StringHelper;
+import com.wap.model.WapResult;
 import com.wap.model.WapResultData;
+import com.wap.service.TaskService;
 import lombok.var;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,27 +20,70 @@ import java.util.ArrayList;
 public class TaskController extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        String json = req.getParameter("source");
+        try {
+            TaskDto taskDto = (TaskDto) JsonHelper.fromJson(json, TaskDto.class);
+            if (taskDto != null) {
+                TaskService taskService = new TaskService();
+                var result = taskService.save(taskDto);
+                resp.getWriter().write(result.asJson());
+            }
+        } catch (Exception e) {
 
+        }
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String idStr = req.getParameter("id");
+        TaskService taskService = new TaskService();
+        if (!StringHelper.isNullOrEmpty(idStr)) {
+            int id = 0;
+            try {
+                id = Integer.parseInt(idStr);
+                var result = taskService.delete(id);
+                resp.getWriter().write(result.asJson());
+            } catch (Exception e) {
+                var result = new WapResult();
+                result.setStatusCode(StatusCode.INVALID_PARAMETER);
+                var resultJson = JsonHelper.toJson(result);
+                resp.getWriter().write(resultJson);
+                return;
+            }
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
+        String json = req.getParameter("source");
+        try {
+            TaskDto taskDto = (TaskDto) JsonHelper.fromJson(json, TaskDto.class);
+            if (taskDto != null) {
+                TaskService taskService = new TaskService();
+                var result = taskService.update(taskDto);
+                resp.getWriter().write(result.asJson());
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String idUserStr = req.getParameter("idUser");
         String orderedByRequiredByStr = req.getParameter("orderedByRequiredBy");
 
-        TaskDao taskDao = new TaskDao();
+        TaskService taskService = new TaskService();
 
         if (StringHelper.isNullOrEmpty(idUserStr)) {
             //call get all method
             if (StringHelper.isNullOrEmpty(orderedByRequiredByStr)) {
-                var result = taskDao.getAllTask(false);
-                var resultJson = JsonHelper.toJson(result);
-                resp.getWriter().write(resultJson);
+                var result = taskService.getAllTask();
+                resp.getWriter().write(result.asJson());
             } else {
-                var result = taskDao.getAllTask(true);
-                var resultJson = JsonHelper.toJson(result);
-                resp.getWriter().write(resultJson);
+                var result = taskService.getAllTaskOrderedByRequiredBy();
+                resp.getWriter().write(result.asJson());
             }
         }
 
@@ -50,19 +93,16 @@ public class TaskController extends HttpServlet {
         } catch (Exception e) {
             var result = new WapResultData<ArrayList<TaskDto>>();
             result.setStatusCode(StatusCode.INVALID_PARAMETER);
-            var resultJson = JsonHelper.toJson(result);
-            resp.getWriter().write(resultJson);
+            resp.getWriter().write(result.asJson());
             return;
         }
 
         if (StringHelper.isNullOrEmpty(orderedByRequiredByStr)) {
-            var result = taskDao.getAllTaskByUserId(idUser, false);
-            var resultJson = JsonHelper.toJson(result);
-            resp.getWriter().write(resultJson);
+            var result = taskService.getAllTaskByUserId(idUser);
+            resp.getWriter().write(result.asJson());
         } else {
-            var result = taskDao.getAllTaskByUserId(idUser, true);
-            var resultJson = JsonHelper.toJson(result);
-            resp.getWriter().write(resultJson);
+            var result = taskService.getAllTaskByUserIdOrderedByRequiredBy(idUser);
+            resp.getWriter().write(result.asJson());
         }
 
     }
