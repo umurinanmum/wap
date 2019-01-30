@@ -85,25 +85,21 @@ public class TaskController extends HttpServlet {
                 var result = taskService.getAllTaskOrderedByRequiredBy();
                 resp.getWriter().write(result.asJson());
             }
-        }
-
-        int idUser = 0;
-        try {
-            idUser = Integer.parseInt(idUserStr);
-        } catch (Exception e) {
-            var result = new WapResultData<ArrayList<TaskDto>>();
-            result.setStatusCode(StatusCode.INVALID_PARAMETER);
-            resp.getWriter().write(result.asJson());
-            return;
-        }
-
-        if (StringHelper.isNullOrEmpty(orderedByRequiredByStr)) {
-            var result = taskService.getAllTaskByUserId(idUser);
-            resp.getWriter().write(result.asJson());
         } else {
-            var result = taskService.getAllTaskByUserIdOrderedByRequiredBy(idUser);
-            resp.getWriter().write(result.asJson());
-        }
+            int idUser = 0;
+            try {
+                idUser = Integer.parseInt(idUserStr);
+            } catch (Exception e) {
 
+            }
+
+            if (StringHelper.isNullOrEmpty(orderedByRequiredByStr)) {
+                var result = taskService.getAllTaskByUserId(idUser);
+                resp.getWriter().write(result.asJson());
+            } else {
+                var result = taskService.getAllTaskByUserIdOrderedByRequiredBy(idUser);
+                resp.getWriter().write(result.asJson());
+            }
+        }
     }
 }
