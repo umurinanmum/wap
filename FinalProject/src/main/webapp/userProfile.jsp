@@ -33,7 +33,8 @@
                         var markerCenter = new google.maps.LatLng(lat, longg);
                         var marker = new google.maps.Marker({
                             position: markerCenter,
-                            animation: google.maps.Animation.BOUNCE
+                            animation: google.maps.Animation.BOUNCE,
+                            label : res.data.mail + ' ' + res.data.phone
                         });
                         marker.setMap(map)
                     }
