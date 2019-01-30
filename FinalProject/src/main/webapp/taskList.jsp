@@ -24,7 +24,6 @@
               });*/
 
             $.get("Task", function (data, status) {
-                console.log(data);
                 var res = JSON.parse(data);
                 if (res.statusCode === "SUCCESS") {
                     for (let i = 0; i < res.data.length; i++) {
@@ -47,7 +46,6 @@
                     }
                 }
             });
-
         });
 
     </script>
