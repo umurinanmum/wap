@@ -1,5 +1,6 @@
 package com.wap.controller;
 
+import com.wap.helper.StringHelper;
 import com.wap.service.UserService;
 import lombok.var;
 
@@ -15,15 +16,19 @@ public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String idUserStr = req.getParameter("id");
-        int idUser = 0;
-        try {
-            idUser = Integer.parseInt(idUserStr);
-        } catch (Exception e) {
-            return;
-        }
-
         UserService userService = new UserService();
-        var result = userService.getById(idUser);
-        resp.getWriter().write(result.asJson());
+        if (!StringHelper.isNullOrEmpty(idUserStr)) {
+            int idUser = 0;
+            try {
+                idUser = Integer.parseInt(idUserStr);
+            } catch (Exception e) {
+                return;
+            }
+            var result = userService.getById(idUser);
+            resp.getWriter().write(result.asJson());
+        } else {
+            var result = userService.getAll();
+            resp.getWriter().write(result.asJson());
+        }
     }
 }
