@@ -41,7 +41,9 @@
                             + res.data[i].user.name + " " + res.data[i].user.lastname
                             + '</td><td>'
                             + res.data[i].completed
-                            + '</td><td><input type="button" class="btn btn-danger" value="Delete" id="deleteButton" alt="' + res.data[i].id + '"/></td></tr>'
+                            + '</td><td><input type="button" class="btn btn-danger" value="Delete" id="deleteButton" alt="' + res.data[i].id + '"/>' +
+                            '<input type="button" class="btn btn-warning" value="Edit" id="editButton" alt="' + res.data[i].id + '"/>' +
+                            '<input type="button" class="btn btn-primary" value="Notes" id="notesButton" alt="' + res.data[i].id + '"/> </td></tr>'
                         );
                     }
                 }
