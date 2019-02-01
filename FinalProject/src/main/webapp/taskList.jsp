@@ -50,12 +50,9 @@
                         var delteteButtonId = "deleteButton" + i;
                         $("#" + delteteButtonId).click(function () {
                             let id = parseInt(this.alt);
-                            let data = {id: id};
-                            debugger;
                             $.ajax({
                                 url: 'Task?id=' + id,
                                 method: 'DELETE',
-                                data: data,
                                 contentType: 'application/json',
                                 success: function (data) {
                                     let res = JSON.parse(data);
@@ -75,12 +72,10 @@
                         var editButtonId = "editButton" + i;
                         $("#" + editButtonId).click(function () {
                             let id = parseInt(this.alt);
-                            let data = {id: id};
                             debugger;
                             $.ajax({
-                                url: 'Task',
+                                url: 'Task?id='+id,
                                 method: 'GET',
-                                data: data,
                                 contentType: 'application/json',
                                 success: function (data) {
                                     let res = JSON.parse(data);
