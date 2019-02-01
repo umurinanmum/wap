@@ -11,6 +11,10 @@ public class TaskService {
 
     private TaskDao taskDao = new TaskDao();
 
+    public WapResultData<TaskDto> getById(int id) {
+        return taskDao.getById(id);
+    }
+
     public WapResult save(TaskDto taskDto) {
         return taskDao.save(taskDto);
     }

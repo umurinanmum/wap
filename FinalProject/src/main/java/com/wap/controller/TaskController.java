@@ -73,32 +73,47 @@ public class TaskController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String idUserStr = req.getParameter("idUser");
         String orderedByRequiredByStr = req.getParameter("orderedByRequiredBy");
+        String idStr = req.getParameter("orderedByRequiredBy");
 
         TaskService taskService = new TaskService();
+        int id = 0;
 
-        if (StringHelper.isNullOrEmpty(idUserStr)) {
-            //call get all method
-            if (StringHelper.isNullOrEmpty(orderedByRequiredByStr)) {
-                var result = taskService.getAllTask();
-                resp.getWriter().write(result.asJson());
-            } else {
-                var result = taskService.getAllTaskOrderedByRequiredBy();
-                resp.getWriter().write(result.asJson());
-            }
-        } else {
-            int idUser = 0;
+        if (!StringHelper.isNullOrEmpty(idStr)) {
             try {
-                idUser = Integer.parseInt(idUserStr);
+                id = Integer.parseInt(idStr);
             } catch (Exception e) {
 
             }
+        }
 
-            if (StringHelper.isNullOrEmpty(orderedByRequiredByStr)) {
-                var result = taskService.getAllTaskByUserId(idUser);
-                resp.getWriter().write(result.asJson());
+        if (id != 0) {
+            var result = taskService.getById(id);
+            resp.getWriter().write(result.asJson());
+        } else {
+            if (StringHelper.isNullOrEmpty(idUserStr)) {
+                //call get all method
+                if (StringHelper.isNullOrEmpty(orderedByRequiredByStr)) {
+                    var result = taskService.getAllTask();
+                    resp.getWriter().write(result.asJson());
+                } else {
+                    var result = taskService.getAllTaskOrderedByRequiredBy();
+                    resp.getWriter().write(result.asJson());
+                }
             } else {
-                var result = taskService.getAllTaskByUserIdOrderedByRequiredBy(idUser);
-                resp.getWriter().write(result.asJson());
+                int idUser = 0;
+                try {
+                    idUser = Integer.parseInt(idUserStr);
+                } catch (Exception e) {
+
+                }
+
+                if (StringHelper.isNullOrEmpty(orderedByRequiredByStr)) {
+                    var result = taskService.getAllTaskByUserId(idUser);
+                    resp.getWriter().write(result.asJson());
+                } else {
+                    var result = taskService.getAllTaskByUserIdOrderedByRequiredBy(idUser);
+                    resp.getWriter().write(result.asJson());
+                }
             }
         }
     }
