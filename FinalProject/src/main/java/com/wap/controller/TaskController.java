@@ -73,7 +73,7 @@ public class TaskController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String idUserStr = req.getParameter("idUser");
         String orderedByRequiredByStr = req.getParameter("orderedByRequiredBy");
-        String idStr = req.getParameter("orderedByRequiredBy");
+        String idStr = req.getParameter("id");
 
         TaskService taskService = new TaskService();
         int id = 0;
