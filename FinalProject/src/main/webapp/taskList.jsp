@@ -4,7 +4,8 @@
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
 
@@ -24,6 +25,33 @@
                   }
               });*/
 
+            $.get("Category", function (data, status) {
+                console.log(data);
+                var res = JSON.parse(data);
+                if (res.statusCode === "SUCCESS") {
+                    for (var i = 0; i < res.data.length; i++) {
+                        $('#categorySelect option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                    }
+                }
+            });
+
+            $.get("User", function (data, status) {
+                var res = JSON.parse(data);
+                if (res.statusCode === "SUCCESS") {
+                    for (var i = 0; i < res.data.length; i++) {
+                        $('#usersSelect option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                    }
+                }
+            });
+
+
+            function getDate(dateVal) {
+                var date = new Date(dateVal);
+                var day = ("0" + date.getDate()).slice(-2);
+                var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                return date.getFullYear()+"-"+(month)+"-"+(day) ;
+            }
+
             $.get("Task", function (data, status) {
                 debugger;
                 var res = JSON.parse(data);
@@ -32,7 +60,7 @@
                         $('#taskListTable tr:last').after('<tr><td>' + (i + 1) + '</td><td>'
                             + res.data[i].name
                             + '</td><td>'
-                            + res.data[i].requiredBy
+                            + getDate(res.data[i].requiredBy)
                             + '</td><td>'
                             + res.data[i].category.name
                             + '</td><td>'
@@ -72,19 +100,20 @@
                         var editButtonId = "editButton" + i;
                         $("#" + editButtonId).click(function () {
                             let id = parseInt(this.alt);
-                            debugger;
                             $.ajax({
                                 url: 'Task?id='+id,
                                 method: 'GET',
                                 contentType: 'application/json',
                                 success: function (data) {
                                     let res = JSON.parse(data);
-                                    $( "input[name='name']" ).val(res.name);
-                                    $( "input[name='date']" ).val(res.date);
-                                    $( "input[name='category']" ).val(res.name);
-                                    $( "input[name='priority']" ).val(res.name);
-                                    $( "input[name='usersSelect']" ).val(res.usersSelect);
-                                    $( "input[name='completed']" ).val(res.usersSelect);
+                                    if(res.statusCode === "SUCCESS") {
+                                        $("input[name='name']").val(res.data.name);
+                                        $("input[name='date']").val(getDate(res.data.requiredBy));
+                                        $("select[name='category']").val(res.data.category.id);
+                                        $("input[name='priority']").val(res.data.priority);
+                                        $("select[name='users']").val(res.data.user.id);
+                                        $("input[name='completed']").attr("checked", res.data.completed);
+                                    }
                                 },
                                 error: function (request, msg, error) {
                                     // handle failure

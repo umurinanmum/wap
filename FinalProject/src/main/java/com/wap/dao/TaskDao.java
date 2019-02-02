@@ -18,7 +18,8 @@ public class TaskDao {
     public WapResult save(TaskDto taskDto) {
         var result = new WapResult();
         try {
-            String query = "INSERT INTO wap.public.task (id, name, required_by, id_category, priority, id_user, is_completed) VALUES  (DEFAULT,?,?,?,?,?,?)";
+            String query = "INSERT INTO wap.public.task (id, name, required_by, id_category, priority, id_user, is_completed) " +
+                    "VALUES  (DEFAULT,?,?,?,?,?,?)";
             PreparedStatement ps = WapConnection.getConnection().prepareStatement(query);
 
             ps.setString(1, taskDto.getName());
@@ -57,7 +58,8 @@ public class TaskDao {
     public WapResult update(TaskDto taskDto) {
         var result = new WapResult();
         try {
-            String query = "UPDATE wap.public.task SET name =?, required_by=?, id_category =?, priority=?,id_user=?,is_completed=? WHERE id=?";
+            String query = "UPDATE wap.public.task SET name =?, required_by=?, id_category =?, priority=?,id_user=?," +
+                    "is_completed=? WHERE id=?";
             PreparedStatement ps = WapConnection.getConnection().prepareStatement(query);
 
             ps.setString(1, taskDto.getName());
@@ -79,7 +81,11 @@ public class TaskDao {
     public WapResultData<TaskDto> getById(int id) {
         var result = new WapResultData<TaskDto>();
         try {
-            String query = "SELECT t.id,t.name AS tname,t.required_by,t.priority,t.is_completed,u.id AS uid,u.name AS uname,u.lastname,u.username,u.password,c.id AS cid,c.name AS cname FROM wap.public.task t INNER JOIN wap.public.users u ON t.id_user = u.id INNER JOIN wap.public.category c ON t.id_category = c.id WHERE t.id= ?";
+            String query = "SELECT t.id,t.name AS tname,t.required_by,t.priority,t.is_completed,u.id AS uid," +
+                    "u.name AS uname,u.lastname,u.username,u.password,c.id AS cid,c.name AS cname " +
+                    "FROM wap.public.task t INNER JOIN wap.public.users u ON t.id_user = u.id " +
+                    "INNER JOIN wap.public.category c ON " +
+                    "t.id_category = c.id WHERE t.id= ?";
 
             PreparedStatement ps = WapConnection.getConnection()
                     .prepareStatement(query);
@@ -120,7 +126,10 @@ public class TaskDao {
     public WapResultData<ArrayList<TaskDto>> getAllTask(boolean orderedByRequiredBy) {
         var result = new WapResultData<ArrayList<TaskDto>>();
         try {
-            String query = "SELECT t.id,t.name AS tname,t.required_by,t.priority,t.is_completed,u.id AS uid,u.name AS uname,u.lastname,u.username,u.password,c.id AS cid,c.name AS cname FROM wap.public.task t INNER JOIN wap.public.users u ON t.id_user = u.id INNER JOIN wap.public.category c ON t.id_category = c.id";
+            String query = "SELECT t.id,t.name AS tname,t.required_by,t.priority,t.is_completed,u.id AS uid," +
+                    "u.name AS uname,u.lastname,u.username,u.password,c.id AS cid,c.name AS cname FROM wap.public.task t " +
+                    "INNER JOIN wap.public.users u ON t.id_user = u.id " +
+                    "INNER JOIN wap.public.category c ON t.id_category = c.id";
 
             if (orderedByRequiredBy) {
                 query += " ORDER BY t.required_by";
@@ -167,7 +176,10 @@ public class TaskDao {
         var result = new WapResultData<ArrayList<TaskDto>>();
         try {
 
-            String query = "SELECT t.id,t.name AS tname,t.required_by,t.priority,t.is_completed,u.id AS uid,u.name AS uname,u.lastname,u.username,u.password,c.id AS cid,c.name AS cname FROM wap.public.task t INNER JOIN wap.public.users u ON t.id_user = u.id INNER JOIN wap.public.category c ON t.id_category = c.id WHERE u.id =?";
+            String query = "SELECT t.id,t.name AS tname,t.required_by,t.priority,t.is_completed,u.id AS uid," +
+                    "u.name AS uname,u.lastname,u.username,u.password,c.id AS cid,c.name AS cname FROM wap.public.task t" +
+                    "INNER JOIN wap.public.users u ON t.id_user = u.id " +
+                    "INNER JOIN wap.public.category c ON t.id_category = c.id WHERE u.id =?";
             if (orderedByRequiredBy) {
                 query += " ORDER BY t.required_by";
             } else {
