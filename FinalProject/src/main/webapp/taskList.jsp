@@ -159,8 +159,9 @@
                         source: JSON.stringify(taskDto)
                     },
                     success: function (data) {
-                        console.log(data);
-                       // location.reload();
+                        if (data.statusCode === "SUCCESS") {
+                            
+                        }
                     },
                     error: function (data) {
                         console.log(data);
