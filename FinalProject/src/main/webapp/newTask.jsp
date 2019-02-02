@@ -25,6 +25,39 @@
                     }
                 }
             });
+
+            $('#saveButton').click(function () {
+                var taskDto = {
+                    "name": $("input[name='name']").val(),
+                    "requiredBy": $("input[name='date']").val(),
+                    "category": {
+                        "id": $("select[name='category']").val()
+                    },
+                    "priority": $("input[name='priority']").val(),
+                    "user": {
+                        "id": $("select[name='users']").val()
+                    }
+                };
+
+                //send to server
+                $.ajax({
+                    type: 'post',
+                    url: 'Task',
+                    dataType: 'JSON',
+                    data: {
+                        source: JSON.stringify(taskDto)
+                    },
+                    success: function (data) {
+                        if (data.statusCode === "SUCCESS") {
+
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            });
+
         });
     </script>
 
@@ -93,10 +126,10 @@
 
         <div class="row">
             <div class="col-md-3">
-                <input type="reset" value="Reset"/>
+                <input type="reset" value="Reset" class="btn btn-secondary"/>
             </div>
             <div class="col-md-3">
-                <input type="submit" value="Save"/>
+                <input type="button" class="btn btn-primary" value="Save" id="saveButton"/>
             </div>
         </div>
     </div>

@@ -160,14 +160,13 @@
                     },
                     success: function (data) {
                         if (data.statusCode === "SUCCESS") {
-                            
+
                         }
                     },
                     error: function (data) {
                         console.log(data);
                     }
                 });
-
             });
 
         });
@@ -267,10 +266,10 @@
 
                     <div class="row">
                         <div class="col-md-3">
-                            <input type="reset" value="Reset"/>
+                            <input type="reset" value="Reset" class="btn btn-secondary"/>
                         </div>
                         <div class="col-md-3">
-                            <input type="button" value="Update" id="updateButton"/>
+                            <input type="button" value="Update" id="updateButton" class="btn btn-primary"/>
                         </div>
                     </div>
                 </div>
