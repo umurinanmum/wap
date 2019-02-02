@@ -109,18 +109,25 @@
                             });
                         });
 
-                        var noteButtonId = "noteButton" + i;
+                        var noteButtonId = "notesButton" + i;
                         $("#" + noteButtonId).click(function () {
+                            $("#notesDiv").show();
                             let id = parseInt(this.alt);
-                            let data = {id: id};
-                            debugger;
                             $.ajax({
-                                url: 'Task?id=' + id,
-                                method: 'DELETE',
-                                data: data,
+                                url: 'Note?idTask=' + id,
+                                method: 'get',
                                 contentType: 'application/json',
                                 success: function (result) {
-                                    alert("Deleted");
+                                    var res = JSON.parse(result);
+                                    console.log(res);
+                                    for (var j = 0; j < res.data.length; j++) {
+                                        $('#noteListTable tr:last').after('<tr><td>' + (j + 1) + '</td><td>'
+                                            + res.data[j].note
+                                            + '</td><td>'
+                                            + getDate(res.data[j].date)
+                                            + '</td></tr>'
+                                        );
+                                    }
                                 },
                                 error: function (request, msg, error) {
                                     // handle failure
@@ -128,10 +135,6 @@
                             });
                         });
                     }
-
-                    $("#notesButton").click(function () {
-                        let id = Integer.parseInt(this.alt);
-                    });
                 }
             });
 
@@ -199,12 +202,12 @@
             </table>
         </div>
     </div>
-    <div class="row" id="editFields" style="display: none">
-        <form>
-            <div class="col-md-12">
+    <div class="row">
+        <div class="col-md-8" id="editFields" style="display: none">
+            <form>
                 <div class="col-md-6">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <p> Name : </p>
                         </div>
                         <div class="col-md-3">
@@ -216,7 +219,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <p> Required By : </p>
                         </div>
                         <div class="col-md-3">
@@ -225,7 +228,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <p> Category : </p>
                         </div>
                         <div class="col-md-3">
@@ -236,7 +239,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <p> Priority : </p>
                         </div>
                         <div class="col-md-3">
@@ -245,7 +248,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <p> User : </p>
                         </div>
                         <div class="col-md-3">
@@ -256,7 +259,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <p> Completed : </p>
                         </div>
                         <div class="col-md-3">
@@ -265,7 +268,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <input type="reset" value="Reset" class="btn btn-secondary"/>
                         </div>
                         <div class="col-md-3">
@@ -273,8 +276,24 @@
                         </div>
                     </div>
                 </div>
+            </form>
+        </div>
+        <div class="col-md-4" id="notesDiv" style="display: none">
+            <div class="table-responsive">
+                <table class="table table-dark" id="noteListTable">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Note</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 </body>
