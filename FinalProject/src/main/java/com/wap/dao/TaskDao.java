@@ -4,6 +4,7 @@ import com.wap.db.WapConnection;
 import com.wap.dto.CategoryDto;
 import com.wap.dto.TaskDto;
 import com.wap.dto.UserDto;
+import com.wap.enums.StatusCode;
 import com.wap.model.WapResult;
 import com.wap.model.WapResultData;
 import lombok.var;
@@ -73,7 +74,7 @@ public class TaskDao {
             ps.executeUpdate();
             result.success();
         } catch (SQLException e) {
-
+            result.setStatusCode(StatusCode.UNKNOWN_ERROR);
         }
         return result;
     }
@@ -113,7 +114,7 @@ public class TaskDao {
                 taskDto.getCategory().setId(rs.getInt("cid"));
                 taskDto.getCategory().setName(rs.getString("cname"));
 
-               result.setData(taskDto);
+                result.setData(taskDto);
             }
             result.success();
 

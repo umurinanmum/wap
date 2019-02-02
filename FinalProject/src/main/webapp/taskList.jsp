@@ -13,20 +13,7 @@
 
         $(document).ready(function () {
 
-            /*  $.ajax({
-                  type: 'get',
-                  url: 'Task',
-                  dataType: 'JSON',
-                  success: function (data) {
-                      console.log(data);
-                  },
-                  error: function (data) {
-                      console.log(data);
-                  }
-              });*/
-
             $.get("Category", function (data, status) {
-                console.log(data);
                 var res = JSON.parse(data);
                 if (res.statusCode === "SUCCESS") {
                     for (var i = 0; i < res.data.length; i++) {
@@ -49,11 +36,10 @@
                 var date = new Date(dateVal);
                 var day = ("0" + date.getDate()).slice(-2);
                 var month = ("0" + (date.getMonth() + 1)).slice(-2);
-                return date.getFullYear()+"-"+(month)+"-"+(day) ;
+                return date.getFullYear() + "-" + (month) + "-" + (day);
             }
 
             $.get("Task", function (data, status) {
-                debugger;
                 var res = JSON.parse(data);
                 if (res.statusCode === "SUCCESS") {
                     for (let i = 0; i < res.data.length; i++) {
@@ -75,8 +61,8 @@
                             '<input type="button" class="btn btn-warning" value="Edit" id="editButton' + i + '"alt="' + res.data[i].id + '"/>' +
                             '<input type="button" class="btn btn-primary" value="Notes" id="notesButton' + i + '"alt="' + res.data[i].id + '"/> </td></tr>'
                         );
-                        var delteteButtonId = "deleteButton" + i;
-                        $("#" + delteteButtonId).click(function () {
+                        var deleteButtonId = "deleteButton" + i;
+                        $("#" + deleteButtonId).click(function () {
                             let id = parseInt(this.alt);
                             $.ajax({
                                 url: 'Task?id=' + id,
@@ -99,14 +85,16 @@
 
                         var editButtonId = "editButton" + i;
                         $("#" + editButtonId).click(function () {
+                            $("#editFields").show();
                             let id = parseInt(this.alt);
+                            $("#idTask").val(id);
                             $.ajax({
-                                url: 'Task?id='+id,
+                                url: 'Task?id=' + id,
                                 method: 'GET',
                                 contentType: 'application/json',
                                 success: function (data) {
                                     let res = JSON.parse(data);
-                                    if(res.statusCode === "SUCCESS") {
+                                    if (res.statusCode === "SUCCESS") {
                                         $("input[name='name']").val(res.data.name);
                                         $("input[name='date']").val(getDate(res.data.requiredBy));
                                         $("select[name='category']").val(res.data.category.id);
@@ -141,19 +129,45 @@
                         });
                     }
 
-
-                    $("#editButton").click(function () {
-                        let id = Integer.parseInt(this.alt);
-                    });
-
                     $("#notesButton").click(function () {
                         let id = Integer.parseInt(this.alt);
                     });
-
-
                 }
             });
 
+            $('#updateButton').click(function () {
+                let idTask = $('#idTask').val();
+                var taskDto = {
+                    "id": idTask,
+                    "name": $("input[name='name']").val(),
+                    "requiredBy": $("input[name='date']").val(),
+                    "category": {
+                        "id": $("select[name='category']").val()
+                    },
+                    "priority": $("input[name='priority']").val(),
+                    "user": {
+                        "id": $("select[name='users']").val()
+                    }
+                };
+
+                //send to server
+                $.ajax({
+                    type: 'post',
+                    url: 'Task',
+                    dataType: 'JSON',
+                    data: {
+                        source: JSON.stringify(taskDto)
+                    },
+                    success: function (data) {
+                        console.log(data);
+                       // location.reload();
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+
+            });
 
         });
 
@@ -185,77 +199,82 @@
             </table>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-3">
-                        <p> Name : </p>
+    <div class="row" id="editFields" style="display: none">
+        <form>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> Name : </p>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="name"/>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <input type="text" name="id" id="idTask"/>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <input type="text" name="name"/>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-3">
-                        <p> Required By : </p>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> Required By : </p>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="date" name="date"/>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <input type="date" name="date"/>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-3">
-                        <p> Category : </p>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> Category : </p>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="category" id="categorySelect">
+                                <option value="sel">Please Select</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <select name="category" id="categorySelect">
-                            <option value="sel">Please Select</option>
-                        </select>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-3">
-                        <p> Priority : </p>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> Priority : </p>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="priority"/>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <input type="text" name="priority"/>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-3">
-                        <p> User : </p>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> User : </p>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="users" id="usersSelect">
+                                <option value="sel">Please Select</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <select name="users" id="usersSelect">
-                            <option value="sel">Please Select</option>
-                        </select>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-3">
-                        <p> Completed : </p>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> Completed : </p>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="checkbox" name="completed"/>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <input type="checkbox" name="completed"/>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-3">
-                        <input type="reset" value="Reset"/>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="submit" value="Save"/>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="reset" value="Reset"/>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="button" value="Update" id="updateButton"/>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 </body>

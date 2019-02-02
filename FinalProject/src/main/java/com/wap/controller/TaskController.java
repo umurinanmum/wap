@@ -5,7 +5,6 @@ import com.wap.enums.StatusCode;
 import com.wap.helper.JsonHelper;
 import com.wap.helper.StringHelper;
 import com.wap.model.WapResult;
-import com.wap.model.WapResultData;
 import com.wap.service.TaskService;
 import lombok.var;
 
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 @WebServlet("/Task")
 public class TaskController extends HttpServlet {
@@ -24,10 +22,15 @@ public class TaskController extends HttpServlet {
         String json = req.getParameter("source");
         try {
             TaskDto taskDto = (TaskDto) JsonHelper.fromJson(json, TaskDto.class);
-            if (taskDto != null) {
-                TaskService taskService = new TaskService();
-                var result = taskService.save(taskDto);
-                resp.getWriter().write(result.asJson());
+            if (taskDto.getId() != 0) {
+                req.setAttribute("source", taskDto);
+                doPut(req, resp);
+            } else {
+                if (taskDto != null) {
+                    TaskService taskService = new TaskService();
+                    var result = taskService.save(taskDto);
+                    resp.getWriter().write(result.asJson());
+                }
             }
         } catch (Exception e) {
 
@@ -55,10 +58,9 @@ public class TaskController extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
-        String json = req.getParameter("source");
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        TaskDto taskDto = ((TaskDto) req.getAttribute("source"));
         try {
-            TaskDto taskDto = (TaskDto) JsonHelper.fromJson(json, TaskDto.class);
             if (taskDto != null) {
                 TaskService taskService = new TaskService();
                 var result = taskService.update(taskDto);
