@@ -11,6 +11,15 @@
             var lat = 0;
             var longg = 0;
 
+            $.get("Team", function (data, status) {
+                var res = JSON.parse(data);
+                if (res.statusCode === "SUCCESS") {
+                    for (var i = 0; i < res.data.length; i++) {
+                        $('#teamsSelect option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                    }
+                }
+            });
+
             $.get("User?id=" + 1, function (data, status) {
                 var res = JSON.parse(data);
                 if (res.statusCode === "SUCCESS") {
@@ -34,7 +43,7 @@
                         var marker = new google.maps.Marker({
                             position: markerCenter,
                             animation: google.maps.Animation.BOUNCE,
-                            label : res.data.mail + ' ' + res.data.phone
+                            label: res.data.mail + ' ' + res.data.phone
                         });
                         marker.setMap(map)
                     }
@@ -52,6 +61,7 @@
 <body>
 <div class="col-md-12">
     <div class="col-md-6">
+
         <div class="row">
             <div class="col-md-3">
                 <p>Name</p>
@@ -60,6 +70,7 @@
                 <p id="nameP"></p>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-3">
                 <p>Last Name</p>
@@ -68,6 +79,7 @@
                 <p id="lastnameP"></p>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-3">
                 <p>Username</p>
@@ -76,6 +88,7 @@
                 <p id="usernameP"></p>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-3">
                 <p>Mail</p>
@@ -84,12 +97,42 @@
                 <p id="mailP"></p>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-3">
                 <p>Phone</p>
             </div>
             <div class="col-md-3">
                 <p id="phoneP"></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <p>Latitude</p>
+            </div>
+            <div class="col-md-3">
+                <p id="latP"></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <p>Longitude</p>
+            </div>
+            <div class="col-md-3">
+                <p id="longP"></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <p>Team</p>
+            </div>
+            <div class="col-md-3">
+                <select name="teams" id="teamsSelect">
+                    <option value="sel">Please Select</option>
+                </select>
             </div>
         </div>
     </div>

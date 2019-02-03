@@ -1,6 +1,5 @@
 package com.wap.controller;
 
-import com.wap.helper.JsonHelper;
 import com.wap.service.CategoryService;
 import lombok.var;
 
@@ -18,6 +17,5 @@ public class CategoryController extends HttpServlet {
         CategoryService categoryService = new CategoryService();
         var result = categoryService.getAll();
         resp.getWriter().write(result.asJson());
-
     }
 }

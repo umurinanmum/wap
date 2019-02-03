@@ -34,13 +34,23 @@
 
             $("#userSelectForFilter").change(function () {
                 let idUser = this.value;
-                $.get("Task?idUser=" + idUser, function (data, status) {
-                    var res = JSON.parse(data);
-                    if (res.statusCode === "SUCCESS") {
-                        $("#taskListTableBody").empty();
-                        generateTaskTable(res);
-                    }
-                });
+                if (idUser === "sel") {
+                    $.get("Task", function (data, status) {
+                        var res = JSON.parse(data);
+                        if (res.statusCode === "SUCCESS") {
+                            $("#taskListTableBody").empty();
+                            generateTaskTable(res);
+                        }
+                    });
+                } else {
+                    $.get("Task?idUser=" + idUser, function (data, status) {
+                        var res = JSON.parse(data);
+                        if (res.statusCode === "SUCCESS") {
+                            $("#taskListTableBody").empty();
+                            generateTaskTable(res);
+                        }
+                    });
+                }
             });
 
 
