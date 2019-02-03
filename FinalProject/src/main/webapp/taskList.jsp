@@ -131,7 +131,7 @@
                                 var res = JSON.parse(result);
                                 console.log(res);
                                 for (var j = 0; j < res.data.length; j++) {
-                                    $('#noteListTable tr:last').after('<tr><td>' + (j + 1) + '</td><td>'
+                                    $('#noteListTable tbody').append('<tr><td>' + (j + 1) + '</td><td>'
                                         + res.data[j].note
                                         + '</td><td>'
                                         + getDate(res.data[j].date)
