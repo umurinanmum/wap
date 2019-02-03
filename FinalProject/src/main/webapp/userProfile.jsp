@@ -139,6 +139,28 @@
     <div id="googleMap" class="col-md-6" style="height: 400px"></div>
 </div>
 
+<div class="col-md-12">
+    <div class="table-responsive">
+        <table class="table table-dark" id="taskListTable">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Due</th>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>User ID</th>
+                <th>User</th>
+                <th>Completed</th>
+            </tr>
+            </thead>
+            <tbody id="taskListTableBody">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
 </body>
 </html>
