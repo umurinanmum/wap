@@ -36,7 +36,8 @@
                     "priority": $("input[name='priority']").val(),
                     "user": {
                         "id": $("select[name='users']").val()
-                    }
+                    },
+                    "completed": $("#completed").val() === "on" ? true : false
                 };
 
                 //send to server
@@ -120,7 +121,7 @@
                 <p> Completed : </p>
             </div>
             <div class="col-md-3">
-                <input type="checkbox" name="completed"/>
+                <input type="checkbox" name="completed" id="completed"/>
             </div>
         </div>
 
