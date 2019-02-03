@@ -23,7 +23,7 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="#">Task</a></li>
+                <li class="active"><a href="#">Task</a></li>
                 <li><a href="#">Team</a></li>
                 <li><a href="#">Member</a></li>
                 <li><a href="#">Logout</a></li>
@@ -38,7 +38,7 @@
             <img src="images/profile.png" class="img-responsive img-rounded">
             <div><h3>Member Name</h3></div>
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="#" class="active">Task</a></li>
+                <li class="active"><a href="#">Task</a></li>
                 <li><a href="#">Team</a></li>
                 <li><a href="#">Member</a></li>
                 <li><a href="#">Logout</a></li>
@@ -47,12 +47,12 @@
         <br>
         <div class="col-sm-10">
             <div class="panel panel-info">
-                <div class="panel-heading">Task List</div>
+                <div class="panel-heading"><b>Task List</b></div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-2">
-                            <button type="button" class="btn btn-primary" title="Add Task">Add Task</button>
+                            <button type="button" class="btn btn-primary" title="Add Task" data-toggle="modal" data-target="#addTaskModal" data-backdrop="false">Add Task</button>
                             </div>
                             <div class="col-md-2">
                                 Filter By :
@@ -180,22 +180,130 @@
                     </div>
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary" title="Edit"> <span class="glyphicon glyphicon-edit"></span></button>
+                        <button type="button" class="btn btn-primary" title="Edit" data-toggle="modal" data-target="#addTaskModal" data-backdrop="false"> <span class="glyphicon glyphicon-edit"></span></button>
                         <button type="button" class="btn btn-info" title="Note"> <span class="glyphicon glyphicon-comment"></span> </button>
                         <button type="button" class="btn btn-success" title="Share"> <span class="glyphicon glyphicon-share"></span> </button>
-                        <button type="button" class="btn btn-danger" title="Delete"> <span class="glyphicon glyphicon-remove-sign"> </span></button>
+                        <button type="button" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#deleteTaskModal" data-backdrop="false"> <span class="glyphicon glyphicon-remove-sign"> </span></button>
                     </div>
 
                     <ul class="pager">
                         <li><a href="#">Previous</a></li>
                         <li><a href="#">Next</a></li>
                     </ul>
+
+
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="addTaskModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Task</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p> Name : </p>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" name="name" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p> Required By : </p>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="date" name="date" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p> Category : </p>
+                            </div>
+                            <div class="col-md-8">
+                                <select name="category" id="categorySelect" class="form-control">
+                                    <option value="sel">Please Select</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p> Priority : </p>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" name="priority" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p> User : </p>
+                            </div>
+                            <div class="col-md-8">
+                                <select name="users" id="usersSelect" class="form-control">
+                                    <option value="sel">Please Select</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p> Completed : </p>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="checkbox" name="completed" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="reset" value="Reset" class="form-control btn-success"/>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="submit" value="Save" class="form-control btn-primary"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" value="Close" class="form-control btn-danger" data-dismiss="modal"/>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteTaskModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Task</h4>
+            </div>
+            <div class="modal-body">
+                    <h4>Are you sure?</h4>
+            </div>
+            <div class="modal-footer center">
+                <div class="col-md-5">
+                    <input type="reset" value="Yes" class="form-control btn-success"/>
+                </div>
+                <div class="col-md-5">
+                    <input type="submit" value="No" class="form-control btn-danger" data-dismiss="modal"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
