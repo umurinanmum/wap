@@ -38,7 +38,7 @@
             <img src="images/profile.png" class="img-responsive img-rounded">
             <div><h3>Member Name</h3></div>
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">Task</a></li>
+                <li><a href="#" class="active">Task</a></li>
                 <li><a href="#">Team</a></li>
                 <li><a href="#">Member</a></li>
                 <li><a href="#">Logout</a></li>
@@ -51,6 +51,9 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
+                            <div class="col-md-2">
+                            <button type="button" class="btn btn-primary" title="Add Task">Add Task</button>
+                            </div>
                             <div class="col-md-2">
                                 Filter By :
                             </div>
@@ -175,6 +178,14 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" title="Edit"> <span class="glyphicon glyphicon-edit"></span></button>
+                        <button type="button" class="btn btn-info" title="Note"> <span class="glyphicon glyphicon-comment"></span> </button>
+                        <button type="button" class="btn btn-success" title="Share"> <span class="glyphicon glyphicon-share"></span> </button>
+                        <button type="button" class="btn btn-danger" title="Delete"> <span class="glyphicon glyphicon-remove-sign"> </span></button>
+                    </div>
+
                     <ul class="pager">
                         <li><a href="#">Previous</a></li>
                         <li><a href="#">Next</a></li>
@@ -184,6 +195,7 @@
         </div>
     </div>
 </div>
+
 
 </body>
 </html>
