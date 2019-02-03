@@ -178,7 +178,7 @@ public class TaskDao {
         try {
 
             String query = "SELECT t.id,t.name AS tname,t.required_by,t.priority,t.is_completed,u.id AS uid," +
-                    "u.name AS uname,u.lastname,u.username,u.password,c.id AS cid,c.name AS cname FROM wap.public.task t" +
+                    "u.name AS uname,u.lastname,u.username,u.password,c.id AS cid,c.name AS cname FROM wap.public.task t " +
                     "INNER JOIN wap.public.users u ON t.id_user = u.id " +
                     "INNER JOIN wap.public.category c ON t.id_category = c.id WHERE u.id =?";
             if (orderedByRequiredBy) {
