@@ -52,7 +52,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-2">
-                            <button type="button" class="btn btn-primary" title="Add Task" data-toggle="modal" data-target="#addTaskModal" data-backdrop="false">Add Task</button>
+                            <button type="button" class="btn btn-primary" title="Add Task" data-toggle="modal" data-target="#addEditTaskModal" data-backdrop="false">Add Task</button>
                             </div>
                             <div class="col-md-2">
                                 Filter By :
@@ -66,7 +66,7 @@
                     </div>
                     <div class="row">
                         <div class="table-responsive">
-                            <table class="table table-dark" id="taskListTable">
+                            <table class="table table-striped" id="taskListTable">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -77,10 +77,50 @@
                                     <th>User ID</th>
                                     <th>User</th>
                                     <th>Completed</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody id="taskListTableBody">
-
+                                <tr>
+                                    <td>#</td>
+                                    <td>Name</td>
+                                    <td>Due</td>
+                                    <td>Category</td>
+                                    <td>data</td>
+                                    <td>data</td>
+                                    <td>#</td>
+                                    <td>#</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary" title="Edit" data-toggle="modal" data-target="#addEditTaskModal" data-backdrop="false"><span class="glyphicon glyphicon-edit"></span></button>
+                                            <button type="button" class="btn btn-info" title="Note" data-toggle="modal" data-target="#addEditNoteModal" data-backdrop="false"><span class="glyphicon glyphicon-comment">(7)</span></button>
+                                            <button type="button" class="btn btn-success" title="Share"><span class="glyphicon glyphicon-share"></span> </button>
+                                            <button type="button" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#deleteTaskModal" data-backdrop="false"><span class="glyphicon glyphicon-remove-sign"></span></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#</td>
+                                    <td>Name</td>
+                                    <td>Due</td>
+                                    <td>Category</td>
+                                    <td>data</td>
+                                    <td>data</td>
+                                    <td>#</td>
+                                    <td>#</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                Events <span class="caret"></span></button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Edit Task</a></li>
+                                                <li><a href="#">Notes of Task</a></li>
+                                                <li><a href="#">Share Task</a></li>
+                                                <li><a href="#">Delete Task</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -179,19 +219,10 @@
                         </div>
                     </div>
 
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary" title="Edit" data-toggle="modal" data-target="#addTaskModal" data-backdrop="false"> <span class="glyphicon glyphicon-edit"></span></button>
-                        <button type="button" class="btn btn-info" title="Note"> <span class="glyphicon glyphicon-comment"></span> </button>
-                        <button type="button" class="btn btn-success" title="Share"> <span class="glyphicon glyphicon-share"></span> </button>
-                        <button type="button" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#deleteTaskModal" data-backdrop="false"> <span class="glyphicon glyphicon-remove-sign"> </span></button>
-                    </div>
-
                     <ul class="pager">
                         <li><a href="#">Previous</a></li>
                         <li><a href="#">Next</a></li>
                     </ul>
-
-
 
                 </div>
             </div>
@@ -199,12 +230,12 @@
     </div>
 </div>
 
-<div class="modal fade" id="addTaskModal" role="dialog">
+<div class="modal fade" id="addEditTaskModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Task</h4>
+                <h4 class="modal-title">Add/Edit Task</h4>
             </div>
             <div class="modal-body">
                 <form>
@@ -283,6 +314,50 @@
     </div>
 </div>
 
+<div class="modal fade" id="addEditNoteModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add/Edit Note</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Note : </p>
+                        </div>
+                        <div class="col-md-8">
+                            <textarea rows="3" id="note" name="note" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>Post Date : </p>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="date" name="date" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="reset" value="Reset" class="form-control btn-success"/>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="submit" value="Save" class="form-control btn-primary"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" value="Close" class="form-control btn-danger" data-dismiss="modal"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="deleteTaskModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -306,4 +381,5 @@
 </div>
 
 </body>
+
 </html>
