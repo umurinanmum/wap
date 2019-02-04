@@ -1,6 +1,7 @@
 package com.wap.dao;
 
 import com.wap.db.WapConnection;
+import com.wap.dto.TeamDto;
 import com.wap.dto.UserDto;
 import com.wap.model.WapResult;
 import com.wap.model.WapResultData;
@@ -49,6 +50,8 @@ public class UserDao {
                 userDto.setPhone(rs.getString("phone"));
                 userDto.setLat(rs.getString("lat"));
                 userDto.setLongg(rs.getString("longg"));
+                userDto.setTeam(new TeamDto());
+                userDto.getTeam().setId(rs.getInt("id_team"));
 
                 result.getData().add(userDto);
             }
@@ -80,6 +83,8 @@ public class UserDao {
                 result.getData().setPhone(rs.getString("phone"));
                 result.getData().setLat(rs.getString("lat"));
                 result.getData().setLongg(rs.getString("longg"));
+                result.getData().setTeam(new TeamDto());
+                result.getData().getTeam().setId(rs.getInt("id_team"));
             }
 
             result.success();

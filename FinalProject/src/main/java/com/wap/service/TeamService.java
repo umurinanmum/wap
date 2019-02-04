@@ -1,6 +1,7 @@
 package com.wap.service;
 
 import com.wap.dao.TeamDao;
+import com.wap.dto.TaskDto;
 import com.wap.dto.TeamDto;
 import com.wap.model.WapResultData;
 
@@ -11,5 +12,9 @@ public class TeamService {
 
     public WapResultData<ArrayList<TeamDto>> getAll() {
         return teamDao.getAll();
+    }
+
+    public WapResultData<ArrayList<TaskDto>> getAllTaskInTheTeam(int idTeam){
+        return teamDao.getAllTaskInTheTeam(idTeam);
     }
 }
