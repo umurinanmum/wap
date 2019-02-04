@@ -42,7 +42,8 @@
                 <li><a href="#">Team</a></li>
                 <li><a href="#">Member</a></li>
                 <li><a href="#">Logout</a></li>
-            </ul><br>
+            </ul>
+            <br>
         </div>
         <br>
         <div class="col-sm-10">
@@ -52,7 +53,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-2">
-                            <button type="button" class="btn btn-primary" title="Add Task" data-toggle="modal" data-target="#addEditTaskModal" data-backdrop="false">Add Task</button>
+                                <button type="button" class="btn btn-primary" title="Add Task" data-toggle="modal"
+                                        data-target="#addEditTaskModal" data-backdrop="false">Add Task
+                                </button>
                             </div>
                             <div class="col-md-2">
                                 Filter By :
@@ -92,10 +95,19 @@
                                     <td>#</td>
                                     <td>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-primary" title="Edit" data-toggle="modal" data-target="#addEditTaskModal" data-backdrop="false"><span class="glyphicon glyphicon-edit"></span></button>
-                                            <button type="button" class="btn btn-info" title="Note" data-toggle="modal" data-target="#addEditNoteModal" data-backdrop="false"><span class="glyphicon glyphicon-comment">(7)</span></button>
-                                            <button type="button" class="btn btn-success" title="Share"><span class="glyphicon glyphicon-share"></span> </button>
-                                            <button type="button" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#deleteTaskModal" data-backdrop="false"><span class="glyphicon glyphicon-remove-sign"></span></button>
+                                            <button type="button" class="btn btn-primary" title="Edit"
+                                                    data-toggle="modal" data-target="#addEditTaskModal"
+                                                    data-backdrop="false"><span class="glyphicon glyphicon-edit"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-info" title="Note" data-toggle="modal"
+                                                    data-target="#addEditNoteModal" data-backdrop="false"><span
+                                                    class="glyphicon glyphicon-comment">(7)</span></button>
+                                            <button type="button" class="btn btn-success" title="Share"><span
+                                                    class="glyphicon glyphicon-share"></span></button>
+                                            <button type="button" class="btn btn-danger" title="Delete"
+                                                    data-toggle="modal" data-target="#deleteTaskModal"
+                                                    data-backdrop="false"><span
+                                                    class="glyphicon glyphicon-remove-sign"></span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -110,7 +122,8 @@
                                     <td>#</td>
                                     <td>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                            <button type="button" class="btn btn-primary dropdown-toggle"
+                                                    data-toggle="dropdown">
                                                 Events <span class="caret"></span></button>
                                             <ul class="dropdown-menu" role="menu">
                                                 <li><a href="#">Edit Task</a></li>
@@ -195,7 +208,8 @@
                                             <input type="reset" value="Reset" class="btn btn-secondary"/>
                                         </div>
                                         <div class="col-md-3">
-                                            <input type="button" value="Update" id="updateButton" class="btn btn-primary"/>
+                                            <input type="button" value="Update" id="updateButton"
+                                                   class="btn btn-primary"/>
                                         </div>
                                     </div>
                                 </div>
@@ -239,75 +253,75 @@
             </div>
             <div class="modal-body">
                 <form>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p> Name : </p>
-                            </div>
-                            <div class="col-md-8">
-                                <input type="text" name="name" class="form-control"/>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> Name : </p>
                         </div>
+                        <div class="col-md-8">
+                            <input type="text" name="name" class="form-control"/>
+                        </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p> Required By : </p>
-                            </div>
-                            <div class="col-md-8">
-                                <input type="date" name="date" class="form-control"/>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> Required By : </p>
                         </div>
+                        <div class="col-md-8">
+                            <input type="date" name="date" class="form-control"/>
+                        </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p> Category : </p>
-                            </div>
-                            <div class="col-md-8">
-                                <select name="category" id="categorySelect" class="form-control">
-                                    <option value="sel">Please Select</option>
-                                </select>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> Category : </p>
                         </div>
+                        <div class="col-md-8">
+                            <select name="category" id="categorySelect" class="form-control">
+                                <option value="sel">Please Select</option>
+                            </select>
+                        </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p> Priority : </p>
-                            </div>
-                            <div class="col-md-8">
-                                <input type="text" name="priority" class="form-control"/>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> Priority : </p>
                         </div>
+                        <div class="col-md-8">
+                            <input type="text" name="priority" class="form-control"/>
+                        </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p> User : </p>
-                            </div>
-                            <div class="col-md-8">
-                                <select name="users" id="usersSelect" class="form-control">
-                                    <option value="sel">Please Select</option>
-                                </select>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> User : </p>
                         </div>
+                        <div class="col-md-8">
+                            <select name="users" id="usersSelect" class="form-control">
+                                <option value="sel">Please Select</option>
+                            </select>
+                        </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p> Completed : </p>
-                            </div>
-                            <div class="col-md-8">
-                                <input type="checkbox" name="completed" class="form-control"/>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p> Completed : </p>
                         </div>
+                        <div class="col-md-8">
+                            <input type="checkbox" name="completed" class="form-control"/>
+                        </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <input type="reset" value="Reset" class="form-control btn-success"/>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="submit" value="Save" class="form-control btn-primary"/>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="submit" value="Close" class="form-control btn-danger" data-dismiss="modal"/>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="reset" value="Reset" class="form-control btn-success"/>
                         </div>
+                        <div class="col-md-6">
+                            <input type="submit" value="Save" class="form-control btn-primary"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" value="Close" class="form-control btn-danger" data-dismiss="modal"/>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -366,7 +380,7 @@
                 <h4 class="modal-title">Delete Task</h4>
             </div>
             <div class="modal-body">
-                    <h4>Are you sure?</h4>
+                <h4>Are you sure?</h4>
             </div>
             <div class="modal-footer center">
                 <div class="col-md-5">
