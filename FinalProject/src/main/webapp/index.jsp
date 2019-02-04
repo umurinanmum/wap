@@ -8,6 +8,7 @@
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    <script src="js/library.js" ></script>
 </head>
 <body>
 
@@ -53,7 +54,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-2">
-                                <button type="button" class="btn btn-primary" title="Add Task" data-toggle="modal"
+                                <button type="button" class="btn btn-primary" id="addTask" title="Add Task" data-toggle="modal"
                                         data-target="#addEditTaskModal" data-backdrop="false">Add Task
                                 </button>
                             </div>
@@ -84,7 +85,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="taskListTableBody">
-                                <tr>
+                                <%--<tr>
                                     <td>#</td>
                                     <td>Name</td>
                                     <td>Due</td>
@@ -133,12 +134,12 @@
                                             </ul>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr>--%>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="row">
+                    <%--<div class="row">
                         <div class="col-md-8" id="editFields" style="display: none">
                             <form>
                                 <div class="col-md-6">
@@ -231,7 +232,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
 
                     <ul class="pager">
                         <li><a href="#">Previous</a></li>
