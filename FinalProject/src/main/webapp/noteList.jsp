@@ -11,7 +11,6 @@
 <body>
 
 
-
 <div class="panel panel-info">
     <div class="panel-heading"><b>Note List</b></div>
     <div class="panel-body">
