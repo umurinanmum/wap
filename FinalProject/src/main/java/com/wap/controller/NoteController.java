@@ -7,7 +7,6 @@ import com.wap.helper.StringHelper;
 import com.wap.model.WapResultData;
 import com.wap.service.NoteService;
 import lombok.var;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +17,25 @@ import java.util.ArrayList;
 @WebServlet("/Note")
 public class NoteController extends HttpServlet {
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        String json = req.getParameter("source");
+        try {
+            NoteDto noteDto = (NoteDto) JsonHelper.fromJson(json, NoteDto.class);
+            if (noteDto.getId() != 0) {
+                req.setAttribute("source", noteDto);
+                doPut(req, resp);
+            } else {
+                if (noteDto != null) {
+                    NoteService noteService = new NoteService();
+                    var result = noteService.save(noteDto);
+                    resp.getWriter().write(result.asJson());
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
         String idTaskStr = req.getParameter("idTask");
@@ -41,5 +59,19 @@ public class NoteController extends HttpServlet {
         NoteService noteService = new NoteService();
         var result = noteService.getNotesByIdTask(idTask);
         resp.getWriter().write(result.asJson());
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        NoteDto noteDto = ((NoteDto) req.getAttribute("source"));
+        try {
+            if (noteDto != null) {
+                NoteService noteService = new NoteService();
+                var result = noteService.update(noteDto);
+                resp.getWriter().write(result.asJson());
+            }
+        } catch (Exception e) {
+
+        }
     }
 }

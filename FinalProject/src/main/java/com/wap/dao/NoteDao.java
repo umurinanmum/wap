@@ -2,6 +2,8 @@ package com.wap.dao;
 
 import com.wap.db.WapConnection;
 import com.wap.dto.NoteDto;
+import com.wap.enums.StatusCode;
+import com.wap.model.WapResult;
 import com.wap.model.WapResultData;
 import lombok.var;
 
@@ -37,4 +39,58 @@ public class NoteDao {
         return result;
     }
 
+    public WapResult update(NoteDto noteDto) {
+        var result = new WapResult();
+        try {
+            String query = "UPDATE wap.public.note SET note =?, date=?, id_task =? WHERE id=?";
+            PreparedStatement ps = WapConnection.getConnection().prepareStatement(query);
+
+            ps.setString(1, noteDto.getNote());
+            ps.setDate(2, noteDto.getDate());
+            ps.setInt(3, noteDto.getTaskDto().getId());
+
+            ps.executeUpdate();
+            result.success();
+        } catch (SQLException e) {
+            result.setStatusCode(StatusCode.UNKNOWN_ERROR);
+        }
+        return result;
+    }
+
+    public WapResult delete(int id) {
+        var result = new WapResult();
+        try {
+            String query = "DELETE FROM wap.public.note WHERE id=?";
+            PreparedStatement ps = WapConnection.getConnection().prepareStatement(query);
+
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+            result.success();
+
+        } catch (SQLException e) {
+
+        }
+        return result;
+    }
+
+    public WapResult save(NoteDto noteDto) {
+        var result = new WapResult();
+        try {
+            String query = "INSERT INTO wap.public.note (id, note, date, id_task) " +
+                    "VALUES  (DEFAULT,?,?,?)";
+            PreparedStatement ps = WapConnection.getConnection().prepareStatement(query);
+
+            ps.setString(1, noteDto.getNote());
+            ps.setDate(2, noteDto.getDate());
+            ps.setInt(3, noteDto.getTaskDto().getId());
+
+            ps.executeUpdate();
+            result.success();
+
+        } catch (SQLException e) {
+
+        }
+        return result;
+    }
 }

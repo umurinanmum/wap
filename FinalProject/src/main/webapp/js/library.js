@@ -129,11 +129,18 @@ $(document).ready(function () {
                 });
             });
 
+            var addNoteButtonId = "addNoteButton" + i;
+            $("#" + addNoteButtonId).click(function () {
+                let id = parseInt(this.lang);
+                $("#idTask").val(id);
+            });
+
             var noteButtonId = "notesButton" + i;
             $("#" + noteButtonId).click(function () {
-                $("#notesDiv").show();
+                //$("#notesDiv").show();
                 let id = parseInt(this.lang);
-                $.ajax({
+                $("#idTask").val(id);
+                /*$.ajax({
                     url: 'Note?idTask=' + id,
                     method: 'get',
                     contentType: 'application/json',
@@ -152,7 +159,7 @@ $(document).ready(function () {
                     error: function (request, msg, error) {
                         // handle failure
                     }
-                });
+                });*/
             });
         }
     }
@@ -197,6 +204,36 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('#noteSaveButton').click(function () {
+        let idTask = $('#idTask').val();
+        var noteDto = {
+            "note": $("textarea[name='note']").val(),
+            "date": $("input[name='dateNote']").val(),
+            "taskDto": {
+                "id": idTask
+            }
+        };
+
+        //send to server
+        $.ajax({
+            type: 'post',
+            url: 'Note',
+            dataType: 'JSON',
+            data: {
+                source: JSON.stringify(noteDto)
+            },
+            success: function (data) {
+                if (data.statusCode === "SUCCESS") {
+                    //location.reload();
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
 
     $('#updateTaskSaveButton').click(function () {
         let idTask = $('#idTask').val();
