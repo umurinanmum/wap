@@ -351,23 +351,57 @@
     </div>
 </div>
 
+<div class="modal fade" id="addEditNoteModal" role="dialog">
+    <div class="panel panel-info">
+        <div class="panel-heading"><b>Note List</b></div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <form>
+                            <div class="col-md-9">
+                                <input type="text" id="note" name="note" class="form-control"></textarea>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" value="Save" class="btn-primary"/>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-9">
+                            <p>Note : </p>
+                        </div>
+                        <div class="col-md-3">
+                            [ DateTime ]
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <p>Note : </p>
+                        </div>
+                        <div class="col-md-3">
+                            [ DateTime ]
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function(){
-        $("#idMember").click(function(event){
-            callProfile();
-        });
+        $("#idMember").click = callProfile;
+        $("#idMemberM").click = callProfile;
 
-        $("#idMemberM").click(function(event){
-            callProfile();
-        });
+        $("#idTask").click = callTask;
+        $("#idTaskM").click = callTask;
 
-        $("#idTask").click(function(event){
-            callTask();
-        });
-
-        $("#idTaskM").click(function(event){
-            callTask();
-        });
+        $("#idTeam").click = callTeam;
+        $("#idTeamM").click = callTeam;
 
         function callProfile(){
             $("#mainDiv").load("userProf.jsp");
@@ -376,6 +410,11 @@
         function callTask(){
             $("#mainDiv").load("taskList.jsp");
         }
+
+        function callTeam(){
+            $("#mainDiv").load("noteList.jsp");
+        }
+
     });
 </script>
 
