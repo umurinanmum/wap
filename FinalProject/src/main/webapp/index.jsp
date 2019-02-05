@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
-    <script src="js/library.js" ></script>
+    <script src="js/library.js"></script>
 </head>
 <body>
 
@@ -54,12 +54,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-2">
-                                <button type="button" class="btn btn-primary" id="addTask" title="Add Task" data-toggle="modal"
-<<<<<<< HEAD
-                                        data-target="#addEditTaskModal" data-backdrop="false">Add Task
-=======
-                                        data-target="#newTaskModal" data-backdrop="false">Add Task
->>>>>>> master
+                                <button type="button" class="btn btn-primary" id="addTask" title="Add Task"
+                                        data-toggle="modal">Add Task
                                 </button>
                             </div>
                             <div class="col-md-2">
@@ -408,7 +404,8 @@
                             <input type="reset" value="Reset" class="form-control btn-success"/>
                         </div>
                         <div class="col-md-6">
-                            <input type="button" value="Save" id="updateTaskSaveButton" class="form-control btn-primary"/>
+                            <input type="button" value="Save" id="updateTaskSaveButton"
+                                   class="form-control btn-primary"/>
                         </div>
                         <div class="col-md-2">
                             <input type="submit" value="Close" class="form-control btn-danger" data-dismiss="modal"/>
@@ -420,8 +417,6 @@
     </div>
 </div>
 
-<<<<<<< HEAD
-=======
 <div class="modal fade" id="addEditNoteModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -466,7 +461,6 @@
     </div>
 </div>
 
->>>>>>> master
 <div class="modal fade" id="deleteTaskModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -490,28 +484,28 @@
 </div>
 
 <script>
-    $(document).ready(function(){
-        $("#idMember").click(function(event){
+    $(document).ready(function () {
+        $("#idMember").click(function (event) {
             callProfile();
         });
 
-        $("#idMemberM").click(function(event){
+        $("#idMemberM").click(function (event) {
             callProfile();
         });
 
-        $("#idTask").click(function(event){
+        $("#idTask").click(function (event) {
             callTask();
         });
 
-        $("#idTaskM").click(function(event){
+        $("#idTaskM").click(function (event) {
             callTask();
         });
 
-        function callProfile(){
+        function callProfile() {
             $("#mainDiv").load("userProf.jsp");
         }
 
-        function callTask(){
+        function callTask() {
             $("#mainDiv").load("taskList.jsp");
         }
     });
