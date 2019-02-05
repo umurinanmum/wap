@@ -95,12 +95,12 @@ $(document).ready(function () {
 
 
             $("#addTask").click(function () {
-                $("input[name='name']").val("");
-                $("input[name='date']").val(getDate((new Date()).getTime()));
-                $("select[name='category']").val("sel");
-                $("input[name='priority']").val("");
-                $("select[name='users']").val("sel");
-                $("input[name='completed']").attr("checked", false);
+                $("input[name='nameNewTask']").val("");
+                $("input[name='dateNewTask']").val(getDate((new Date()).getTime()));
+                $("select[name='categoryNewTask']").val("sel");
+                $("input[name='priorityNewTask']").val("");
+                $("select[name='usersNewTask']").val("sel");
+                $("input[name='completedNewTask']").attr("checked", false);
             });
 
             var editButtonId = "editButton" + i;
@@ -120,7 +120,7 @@ $(document).ready(function () {
                             $("select[name='category']").val(res.data.category.id);
                             $("input[name='priority']").val(res.data.priority);
                             $("select[name='users']").val(res.data.user.id);
-                            $("input[name='completed']").attr("checked", res.data.completed);
+                            $("input[name='completedUpdate']").attr("checked", res.data.completed);
                         }
                     },
                     error: function (request, msg, error) {
@@ -176,7 +176,7 @@ $(document).ready(function () {
             "user": {
                 "id": $("select[name='usersNewTask']").val()
             },
-            "completed": $("#completedNewTask").val() === "on" ? true : false
+            "completed": document.getElementById('completedNewTask').checked
         };
 
         //send to server
@@ -211,7 +211,7 @@ $(document).ready(function () {
             "user": {
                 "id": $("select[name='users']").val()
             },
-            "completed": $("#completedUpdate").val() === "on" ? true : false
+            "completed": document.getElementById('completedUpdate').checked
         };
 
         //send to server
