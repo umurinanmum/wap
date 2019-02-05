@@ -3,6 +3,25 @@ $(document).ready(function () {
     $("a[name='idMemberM']").click(function (event) {
         $("#mainDiv").load("userProf.jsp", function () {
             loadUser();
+            $("#userSelect").change(function () {
+                let idUser = this.value;
+                $.get("User?id=" + idUser, function (data, status) {
+                    var res = JSON.parse(data);
+                    if (res.statusCode === "SUCCESS") {
+                        $("#nameP").val(res.data.name);
+                        $("#lastnameP").val(res.data.lastname);
+                        $("#usernameP").val(res.data.username);
+                        $("#mailP").val(res.data.mail);
+                        $("#phoneP").val(res.data.phone);
+                        $("#latP").val(res.data.lat);
+                        $("#longP").val(res.data.longg);
+
+                        lat=res.data.lat;
+                        longg=res.data.longg;
+                        initialize(res.data.lat,res.data.longg,res.data.mail,res.data.phone);
+                    }
+                });
+            });
         });
     });
 
@@ -39,6 +58,7 @@ $(document).ready(function () {
             }
         });
     }
+
 
     $("#userSelectForFilter").change(function () {
         let idUser = this.value;
@@ -292,9 +312,6 @@ $(document).ready(function () {
         });
     });
 
-    var lat = 0;
-    var longg = 0;
-
     // $.get("Team", function (data, status) {
     //     var res = JSON.parse(data);
     //     if (res.statusCode === "SUCCESS") {
@@ -310,12 +327,19 @@ $(document).ready(function () {
             id = 1;
         }
 
+        $.get("User", function (data, status) {
+            var res = JSON.parse(data);
+            if (res.statusCode === "SUCCESS") {
+                for (var i = 0; i < res.data.length; i++) {
+                    $('#userSelect option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                }
+            }
+        });
+
 
         $.get("User?id=" + id, function (data, status) {
             var res = JSON.parse(data);
             if (res.statusCode === "SUCCESS") {
-                lat = res.data.lat;
-                longg = res.data.longg;
 
                 $("#nameP").val(res.data.name);
                 $("#lastnameP").val(res.data.lastname);
@@ -438,26 +462,28 @@ $(document).ready(function () {
                 //     }
                 // }
 
-                function initialize() {
-                    var prop = {
-                        center: new google.maps.LatLng(lat, longg),
-                        zoom: 16,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-                    var map = new google.maps.Map(document.getElementById("googleMap"), prop);
-                    var markerCenter = new google.maps.LatLng(lat, longg);
-                    var marker = new google.maps.Marker({
-                        position: markerCenter,
-                        animation: google.maps.Animation.BOUNCE,
-                        label: res.data.mail + ' ' + res.data.phone
-                    });
-                    marker.setMap(map)
-                }
 
-                initialize();
+
+                initialize(res.data.lat,res.data.longg,res.data.mail,res.data.phone);
 
             }
         });
+    }
+
+    function initialize(lat,longg,mail,phone) {
+        var prop = {
+            center: new google.maps.LatLng(lat, longg),
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"), prop);
+        var markerCenter = new google.maps.LatLng(lat, longg);
+        var marker = new google.maps.Marker({
+            position: markerCenter,
+            animation: google.maps.Animation.BOUNCE,
+            label: mail + ' ' + phone
+        });
+        marker.setMap(map)
     }
 
 });
