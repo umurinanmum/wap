@@ -447,7 +447,7 @@
                                 <div class="media-body">
                                     <h4 class="media-heading">Member1 <small>
                                         <i>Posted on February 19, 2019</i></small></h4>
-                                    <p>note ntoe ntoen toe</p>
+                                    <p>note ntoe ntoen toea sflsal dfksl;d fksl;dfks l;fksld;f ksl; fks;ldfksl;f ksld;f ksl;fk ;s</p>
                                 </div>
                             </div>
 
@@ -498,6 +498,7 @@
 <script>
 
     $(document).ready(function(){
+
         $("#idMenuMember").click = callProfile;
         $("#idMenuMemberM").click = callProfile;
 
