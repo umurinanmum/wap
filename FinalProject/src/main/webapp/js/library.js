@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-    loadInitialTasks();
-
     $("a[name='idMemberM']").click(function (event) {
         $("#mainDiv").load("userProf.jsp", function () {
             loadUser();
@@ -15,7 +13,9 @@ $(document).ready(function () {
     });
 
 
-    $("#mainDiv").load("tasks.jsp");
+    $("#mainDiv").load("tasks.jsp",function () {
+        loadInitialTasks();
+    });
 
     $.get("Category", function (data, status) {
         var res = JSON.parse(data);
@@ -27,16 +27,18 @@ $(document).ready(function () {
         }
     });
 
-    $.get("User", function (data, status) {
-        var res = JSON.parse(data);
-        if (res.statusCode === "SUCCESS") {
-            for (var i = 0; i < res.data.length; i++) {
-                $('#usersSelectNew option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
-                $('#usersSelectUpdate option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
-                $('#userSelectForFilter option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+    function loadUsers() {
+        $.get("User", function (data, status) {
+            var res = JSON.parse(data);
+            if (res.statusCode === "SUCCESS") {
+                for (var i = 0; i < res.data.length; i++) {
+                    $('#usersSelectNew option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                    $('#usersSelectUpdate option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                    $('#userSelectForFilter option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                }
             }
-        }
-    });
+        });
+    }
 
     $("#userSelectForFilter").change(function () {
         let idUser = this.value;
@@ -65,6 +67,7 @@ $(document).ready(function () {
             var res = JSON.parse(data);
             if (res.statusCode === "SUCCESS") {
                 generateTaskTable(res);
+                loadUsers();
             }
         });
     }
