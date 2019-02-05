@@ -11,7 +11,7 @@
                 var res = JSON.parse(data);
                 if (res.statusCode === "SUCCESS") {
                     for (var i = 0; i < res.data.length; i++) {
-                        $('#usersSelect option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                        $('#usersSelectNew option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
                     }
                 }
             });
