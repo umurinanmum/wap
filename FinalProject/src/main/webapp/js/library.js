@@ -175,7 +175,8 @@ $(document).ready(function () {
             "priority": $("input[name='priorityNewTask']").val(),
             "user": {
                 "id": $("select[name='usersNewTask']").val()
-            }
+            },
+            "completed": $("#completedNewTask").val() === "on" ? true : false
         };
 
         //send to server
@@ -209,7 +210,8 @@ $(document).ready(function () {
             "priority": $("input[name='priority']").val(),
             "user": {
                 "id": $("select[name='users']").val()
-            }
+            },
+            "completed": $("#completedUpdate").val() === "on" ? true : false
         };
 
         //send to server

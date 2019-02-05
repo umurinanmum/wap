@@ -308,7 +308,7 @@
                             <p> Completed : </p>
                         </div>
                         <div class="col-md-8">
-                            <input type="checkbox" name="completedEdit" id="editCompleted" class="form-control"/>
+                            <input type="checkbox" name="completedNewTask" id="completedNewTask" class="form-control"/>
                         </div>
                     </div>
 
@@ -395,7 +395,7 @@
                             <p> Completed : </p>
                         </div>
                         <div class="col-md-8">
-                            <input type="checkbox" name="completed" class="form-control"/>
+                            <input type="checkbox" name="completed" id="completedUpdate" class="form-control"/>
                         </div>
                     </div>
 
