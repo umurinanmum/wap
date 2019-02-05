@@ -8,6 +8,7 @@
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    <script src="js/library.js" ></script>
 </head>
 <body>
 
@@ -23,10 +24,10 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Task</a></li>
-                <li><a href="#">Team</a></li>
-                <li><a href="#">Member</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="#" id="idTaskM">Task</a></li>
+                <li><a href="#" id="idTeamM">Team</a></li>
+                <li><a href="#" id="idMemberM">Member</a></li>
+                <li><a href="#" id="idLogoutM">Logout</a></li>
             </ul>
         </div>
     </div>
@@ -38,22 +39,22 @@
             <img src="images/profile.png" class="img-responsive img-rounded">
             <div><h3>Member Name</h3></div>
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#">Task</a></li>
-                <li><a href="#">Team</a></li>
-                <li><a href="#">Member</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="#" id="idTask">Task</a></li>
+                <li><a href="#" id="idTeam">Team</a></li>
+                <li><a href="#" id="idMember">Member</a></li>
+                <li><a href="#" id="idLogout">Logout</a></li>
             </ul>
             <br>
         </div>
         <br>
-        <div class="col-sm-10">
+        <div class="col-sm-10" id="mainDiv">
             <div class="panel panel-info">
                 <div class="panel-heading"><b>Task List</b></div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-2">
-                                <button type="button" class="btn btn-primary" title="Add Task" data-toggle="modal"
+                                <button type="button" class="btn btn-primary" id="addTask" title="Add Task" data-toggle="modal"
                                         data-target="#addEditTaskModal" data-backdrop="false">Add Task
                                 </button>
                             </div>
@@ -84,7 +85,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="taskListTableBody">
-                                <tr>
+                                <%--<tr>
                                     <td>#</td>
                                     <td>Name</td>
                                     <td>Due</td>
@@ -133,12 +134,12 @@
                                             </ul>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr>--%>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="row">
+                    <%--<div class="row">
                         <div class="col-md-8" id="editFields" style="display: none">
                             <form>
                                 <div class="col-md-6">
@@ -231,7 +232,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
 
                     <ul class="pager">
                         <li><a href="#">Previous</a></li>
@@ -328,50 +329,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="addEditNoteModal" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add/Edit Note</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <p>Note : </p>
-                        </div>
-                        <div class="col-md-8">
-                            <textarea rows="3" id="note" name="note" class="form-control"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <p>Post Date : </p>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="date" name="date" class="form-control"/>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <input type="reset" value="Reset" class="form-control btn-success"/>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="submit" value="Save" class="form-control btn-primary"/>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="submit" value="Close" class="form-control btn-danger" data-dismiss="modal"/>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="modal fade" id="deleteTaskModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -393,6 +350,35 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $("#idMember").click(function(event){
+            callProfile();
+        });
+
+        $("#idMemberM").click(function(event){
+            callProfile();
+        });
+
+        $("#idTask").click(function(event){
+            callTask();
+        });
+
+        $("#idTaskM").click(function(event){
+            callTask();
+        });
+
+        function callProfile(){
+            $("#mainDiv").load("userProf.jsp");
+        }
+
+        function callTask(){
+            $("#mainDiv").load("taskList.jsp");
+        }
+    });
+</script>
+
 
 </body>
 
