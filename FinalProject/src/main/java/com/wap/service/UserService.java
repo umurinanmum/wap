@@ -15,10 +15,6 @@ public class UserService {
         return  userDao.getAll();
     }
 
-    public WapResult joinTheTeam(int userId, int teamId){
-        return userDao.joinTheTeam(userId,teamId);
-    }
-
     public WapResultData<UserDto> getById(int id) {
         return userDao.getById(id);
     }

@@ -8,6 +8,7 @@ $(document).ready(function () {
                 $.get("User?id=" + idUser, function (data, status) {
                     var res = JSON.parse(data);
                     if (res.statusCode === "SUCCESS") {
+                        $("#idUser").val(res.data.id);
                         $("#nameP").val(res.data.name);
                         $("#lastnameP").val(res.data.lastname);
                         $("#usernameP").val(res.data.username);
@@ -17,9 +18,9 @@ $(document).ready(function () {
                         $("#longP").val(res.data.longg);
                         $("select[name='teams']").val(res.data.team.id);
 
-                        lat=res.data.lat;
-                        longg=res.data.longg;
-                        initialize(res.data.lat,res.data.longg,res.data.mail,res.data.phone);
+                        lat = res.data.lat;
+                        longg = res.data.longg;
+                        initialize(res.data.lat, res.data.longg, res.data.mail, res.data.phone);
                     }
                 });
             });
@@ -33,7 +34,7 @@ $(document).ready(function () {
     });
 
 
-    $("#mainDiv").load("tasks.jsp",function () {
+    $("#mainDiv").load("tasks.jsp", function () {
         loadInitialTasks();
     });
 
@@ -346,11 +347,27 @@ $(document).ready(function () {
             }
         });
 
+        $("#joinTeam").click(function () {
+            let idUser = $("#idUser").val();
+            let idTeam = $("#teamsSelect").val();
+            $.ajax({
+                url: 'Team?idTeam=' + idTeam + "&idUser=" + idUser,
+                method: 'POST',
+                contentType: 'application/json',
+                success: function (data) {
+
+                },
+                error: function (request, msg, error) {
+                    // handle failure
+                }
+            });
+        });
+
 
         $.get("User?id=" + id, function (data, status) {
             var res = JSON.parse(data);
             if (res.statusCode === "SUCCESS") {
-
+                $("#idUser").val(res.data.id);
                 $("#nameP").val(res.data.name);
                 $("#lastnameP").val(res.data.lastname);
                 $("#usernameP").val(res.data.username);
@@ -474,14 +491,13 @@ $(document).ready(function () {
                 // }
 
 
-
-                initialize(res.data.lat,res.data.longg,res.data.mail,res.data.phone);
+                initialize(res.data.lat, res.data.longg, res.data.mail, res.data.phone);
 
             }
         });
     }
 
-    function initialize(lat,longg,mail,phone) {
+    function initialize(lat, longg, mail, phone) {
         var prop = {
             center: new google.maps.LatLng(lat, longg),
             zoom: 16,

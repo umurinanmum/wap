@@ -6,6 +6,7 @@ import com.wap.dto.TaskDto;
 import com.wap.dto.TeamDto;
 import com.wap.dto.UserDto;
 import com.wap.helper.StringHelper;
+import com.wap.model.WapResult;
 import com.wap.model.WapResultData;
 import lombok.var;
 
@@ -15,6 +16,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeamDao {
+
+    public WapResult joinTheTeam(int userId, int teamId) {
+        var result = new WapResult();
+        try {
+            String query = "UPDATE wap.public.users SET id_team=? WHERE id=?";
+            PreparedStatement ps = WapConnection.getConnection().prepareStatement(query);
+            ps.setInt(1, teamId);
+            ps.setInt(2, userId);
+
+            ps.executeUpdate();
+            result.success();
+
+        } catch (SQLException e) {
+
+        }
+        return result;
+    }
 
     public WapResultData<ArrayList<TeamDto>> getAll() {
         var result = new WapResultData<ArrayList<TeamDto>>();

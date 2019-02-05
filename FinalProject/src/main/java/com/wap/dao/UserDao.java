@@ -14,23 +14,6 @@ import java.util.ArrayList;
 
 public class UserDao {
 
-    public WapResult joinTheTeam(int userId, int teamId) {
-        var result = new WapResult();
-        try {
-            String query = "UPDATE wap.public.users SET id_team=? WHERE id=?";
-            PreparedStatement ps = WapConnection.getConnection().prepareStatement(query);
-            ps.setInt(1, teamId);
-            ps.setInt(2, userId);
-
-            ps.executeUpdate();
-            result.success();
-
-        } catch (SQLException e) {
-
-        }
-        return result;
-    }
-
     public WapResultData<ArrayList<UserDto>> getAll() {
         var result = new WapResultData<ArrayList<UserDto>>();
         try {

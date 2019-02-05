@@ -89,7 +89,11 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                    <div class="col-md-3" style="display: none">
+                        <input type="text" name="id" id="idUser"/>
+                    </div>
+
+                    <button type="button" id="joinTeam" class="btn btn-primary btn-block">Join Team</button>
                 </form>
             </div>
             <div class="col-md-6">
