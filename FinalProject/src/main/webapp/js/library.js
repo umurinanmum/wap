@@ -4,7 +4,8 @@ $(document).ready(function () {
         var res = JSON.parse(data);
         if (res.statusCode === "SUCCESS") {
             for (var i = 0; i < res.data.length; i++) {
-                $('#categorySelect option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                $('#categorySelectNew option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                $('#categorySelectUpdate option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
             }
         }
     });
@@ -13,7 +14,8 @@ $(document).ready(function () {
         var res = JSON.parse(data);
         if (res.statusCode === "SUCCESS") {
             for (var i = 0; i < res.data.length; i++) {
-                $('#usersSelect option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                $('#usersSelectNew option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                $('#usersSelectUpdate option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
                 $('#userSelectForFilter option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
             }
         }
@@ -64,7 +66,7 @@ $(document).ready(function () {
                 + res.data[i].user.name + " " + res.data[i].user.lastname
                 + '</td><td>'
                 + res.data[i].completed
-                + '</td><td><button class="btn btn-primary" id="editButton' + i + '"lang="' + res.data[i].id + '" data-toggle="modal" data-target="#addEditTaskModal" data-backdrop="false"><span class="glyphicon glyphicon-edit"/></button>' +
+                + '</td><td><button class="btn btn-primary" id="editButton' + i + '"lang="' + res.data[i].id + '" data-toggle="modal" data-target="#updateTaskModal" data-backdrop="false"><span class="glyphicon glyphicon-edit"/></button>' +
                 '<button class="btn btn-info" id="noteButton' + i + '"lang="' + res.data[i].id + '"><span class="glyphicon glyphicon-comment"></span></button>' +
                 '<button type="button" class="btn btn-success" id="addNoteButton' + i + '"lang="' + res.data[i].id + '" data-toggle="modal" data-target="#addEditNoteModal" data-backdrop="false"><span class="glyphicon glyphicon-share"></span></button>' +
                 '<button class="btn btn-danger" id="deleteButton' + i + '"lang="' + res.data[i].id + '"><span class="glyphicon glyphicon-remove-sign"></span></button> </td></tr>'
@@ -94,7 +96,7 @@ $(document).ready(function () {
 
             $("#addTask").click(function () {
                 $("input[name='name']").val("");
-                $("input[name='date']").val(getDate(new Date().now()));
+                $("input[name='date']").val(getDate((new Date()).getTime()));
                 $("select[name='category']").val("sel");
                 $("input[name='priority']").val("");
                 $("select[name='users']").val("sel");
@@ -162,7 +164,40 @@ $(document).ready(function () {
         return date.getFullYear() + "-" + (month) + "-" + (day);
     }
 
-    $('#updateButton').click(function () {
+
+    $('#newTaskSaveButton').click(function () {
+        var taskDto = {
+            "name": $("input[name='nameNewTask']").val(),
+            "requiredBy": $("input[name='dateNewTask']").val(),
+            "category": {
+                "id": $("select[name='categoryNewTask']").val()
+            },
+            "priority": $("input[name='priorityNewTask']").val(),
+            "user": {
+                "id": $("select[name='usersNewTask']").val()
+            }
+        };
+
+        //send to server
+        $.ajax({
+            type: 'post',
+            url: 'Task',
+            dataType: 'JSON',
+            data: {
+                source: JSON.stringify(taskDto)
+            },
+            success: function (data) {
+                if (data.statusCode === "SUCCESS") {
+                    location.reload();
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
+    $('#updateTaskSaveButton').click(function () {
         let idTask = $('#idTask').val();
         var taskDto = {
             "id": idTask,
