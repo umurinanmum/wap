@@ -24,10 +24,10 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="#" id="idTaskM">Task</a></li>
-                <li><a href="#" id="idTeamM">Team</a></li>
-                <li><a href="#" id="idMemberM">Member</a></li>
-                <li><a href="#" id="idLogoutM">Logout</a></li>
+                <li><a href="#" id="idMenuTaskM">Task</a></li>
+                <li><a href="#" id="idMenuTeamM">Team</a></li>
+                <li><a href="#" id="idMenuMemberM">Member</a></li>
+                <li><a href="#" id="idMenuLogoutM">Logout</a></li>
             </ul>
         </div>
     </div>
@@ -39,10 +39,10 @@
             <img src="images/profile.png" class="img-responsive img-rounded">
             <div><h3>Member Name</h3></div>
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="#" id="idTask">Task</a></li>
-                <li><a href="#" id="idTeam">Team</a></li>
-                <li><a href="#" id="idMember">Member</a></li>
-                <li><a href="#" id="idLogout">Logout</a></li>
+                <li><a href="#" id="idMenuTask">Task</a></li>
+                <li><a href="#" id="idMenuTeam">Team</a></li>
+                <li><a href="#" id="idMenuMember">Member</a></li>
+                <li><a href="#" id="idMenuLogout">Logout</a></li>
             </ul>
             <br>
         </div>
@@ -422,40 +422,51 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add/Edit Note</h4>
+                <h4 class="modal-title">Note of Task</h4>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <p>Note : </p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <form>
+                                <div class="col-md-9">
+                                    <label>Note: </label><br>
+                                    <input type="text" id="note" name="note" class="form-control"></textarea>
+                                </div>
+                                <div class="col-md-2"><br>
+                                    <input type="submit" value="Save" class="btn-primary form-control"/>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-md-8">
-                            <textarea rows="3" id="note" name="note" class="form-control"></textarea>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-3">
-                            <p>Post Date : </p>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="date" name="date" class="form-control"/>
-                        </div>
-                    </div>
+                        <div class="row">
+                            <div class="media">
+                                <div class="media-left">
+                                    <img src="images/profile.png" class="media-object" style="width:50px">
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">Member1 <small>
+                                        <i>Posted on February 19, 2019</i></small></h4>
+                                    <p>note ntoe ntoen toe</p>
+                                </div>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-md-3">
-                            <input type="reset" value="Reset" class="form-control btn-success"/>
                         </div>
-                        <div class="col-md-6">
-                            <input type="submit" value="Save" id="noteSaveButton" class="form-control btn-primary"/>
+                        <div class="row">
+                            <div class="media">
+                                <div class="media-left">
+                                    <img src="images/profile.png" class="media-object" style="width:50px">
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">Member2 <small>
+                                        <i>Posted on February 19, 2019</i></small></h4>
+                                    <p>note ntoe ntoen toe</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-2">
-                            <input type="submit" value="Close" class="form-control btn-danger" data-dismiss="modal"/>
-                        </div>
+
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -483,58 +494,18 @@
     </div>
 </div>
 
-<div class="modal fade" id="addEditNoteModal" role="dialog">
-    <div class="panel panel-info">
-        <div class="panel-heading"><b>Note List</b></div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <form>
-                            <div class="col-md-9">
-                                <input type="text" id="note" name="note" class="form-control"></textarea>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="submit" value="Save" class="btn-primary"/>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-9">
-                            <p>Note : </p>
-                        </div>
-                        <div class="col-md-3">
-                            [ DateTime ]
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-9">
-                            <p>Note : </p>
-                        </div>
-                        <div class="col-md-3">
-                            [ DateTime ]
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
 
     $(document).ready(function(){
-        $("#idMember").click = callProfile;
-        $("#idMemberM").click = callProfile;
+        $("#idMenuMember").click = callProfile;
+        $("#idMenuMemberM").click = callProfile;
 
-        $("#idTask").click = callTask;
-        $("#idTaskM").click = callTask;
+        $("#idMenuTask").click = callTask;
+        $("#idMenuTaskM").click = callTask;
 
-        $("#idTeam").click = callTeam;
-        $("#idTeamM").click = callTeam;
+        $("#idMenuTeam").click = callTeam;
+        $("#idMenuTeamM").click = callTeam;
 
 
         function callProfile() {
