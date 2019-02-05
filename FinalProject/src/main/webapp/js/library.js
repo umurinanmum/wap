@@ -15,6 +15,7 @@ $(document).ready(function () {
                         $("#phoneP").val(res.data.phone);
                         $("#latP").val(res.data.lat);
                         $("#longP").val(res.data.longg);
+                        $("select[name='teams']").val(res.data.team.id);
 
                         lat=res.data.lat;
                         longg=res.data.longg;
@@ -336,6 +337,15 @@ $(document).ready(function () {
             }
         });
 
+        $.get("Team", function (data, status) {
+            var res = JSON.parse(data);
+            if (res.statusCode === "SUCCESS") {
+                for (var i = 0; i < res.data.length; i++) {
+                    $('#teamsSelect option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                }
+            }
+        });
+
 
         $.get("User?id=" + id, function (data, status) {
             var res = JSON.parse(data);
@@ -348,6 +358,7 @@ $(document).ready(function () {
                 $("#phoneP").val(res.data.phone);
                 $("#latP").val(res.data.lat);
                 $("#longP").val(res.data.longg);
+                $("select[name='teams']").val(res.data.team.id);
 
                 // if (res.data.team != null && res.data.team != undefined) {
                 //     $.get("Team?idTeam=" + res.data.team.id, function (data, status) {
