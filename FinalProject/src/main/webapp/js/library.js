@@ -1,5 +1,62 @@
 $(document).ready(function () {
 
+    $("a[name='idTeamM']").click(function (event) {
+
+        $("#mainDiv").load("teamList.jsp", function () {
+            //$.get("Team", function (data, status) {
+            //    var res = JSON.parse(data);
+            //    if (res.statusCode === "SUCCESS") {
+            //        console.log(res);
+            //        generateTeamTable(res);
+            //    }
+            //});
+
+            $("#searchTeamBtn").click(function (evt) {
+                evt.preventDefault();
+                let teamSearchByName = $("#teamSearchByName").val();
+                let teamSortBy = $("#teamSortBy").val();
+                let teamSortOrder = $("#teamSortOrder").val();
+
+                $.ajax({
+                    url: "Team",
+                    data: {
+                        "subAction": "Search",
+                        "teamSearchByName": teamSearchByName,
+                        "teamSortBy": teamSortBy,
+                        "teamSortOrder": teamSortOrder
+                    },
+                    method: 'GET',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        var res = JSON.parse(data);
+                        console.log(res);
+                        if (res.statusCode === "SUCCESS") {
+                            $("#teamListTableBody").empty();
+                            generateTeamTable(res);
+                            //location.reload();
+                        }
+                    },
+                    error: function (request, msg, error) {
+                        console.log(error + ': ' + msg);
+                    }
+                });
+            });
+        });
+    });
+
+    function generateTeamTable(res) {
+        for (let i = 0; i < res.data.length; i++) {
+            $('#teamListTable tbody').append('<tr><td>' + (i + 1) + '</td><td>'
+                + res.data[i].name
+                + '</td></tr>'
+            );
+        }
+
+
+    }
+
+
+
     $("a[name='idMemberM']").click(function (event) {
         $("#mainDiv").load("userProf.jsp", function () {
             loadUser();

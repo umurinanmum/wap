@@ -22,4 +22,8 @@ public class TeamService {
     public WapResult joinTheTeam(int idTeam,int idUser){
         return teamDao.joinTheTeam(idUser,idTeam);
     }
+
+    public WapResultData<ArrayList<TeamDto>> getAllSearch(String sName, String oName, String orderType){
+        return teamDao.getAllSearch(sName, oName, orderType);
+    }
 }

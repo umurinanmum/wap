@@ -54,6 +54,36 @@ public class TeamDao {
         return result;
     }
 
+    public WapResultData<ArrayList<TeamDto>> getAllSearch(String searchName, String orderName, String orderType) {
+        var result = new WapResultData<ArrayList<TeamDto>>();
+        try {
+            String sql = "SELECT id, name FROM wap.public.team WHERE upper(name) like ? order by ? ";
+
+            if(orderType.equals("desc"))
+                sql += "desc";
+
+            System.out.println(sql);
+            PreparedStatement ps = WapConnection.getConnection().prepareStatement(sql);
+            ps.setString(1, "%" + searchName.toUpperCase() + "%");
+            ps.setString(2, orderName);
+            //ps.setString(3, orderType);
+
+            ResultSet rs = ps.executeQuery();
+            result.setData(new ArrayList<TeamDto>());
+            while (rs.next()) {
+                TeamDto teamDto = new TeamDto();
+                teamDto.setId(rs.getInt("id"));
+                teamDto.setName(rs.getString("name"));
+                result.getData().add(teamDto);
+            }
+            result.success();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public WapResultData<ArrayList<TaskDto>> getAllTaskInTheTeam(int idTeam) {
         var result = new WapResultData<ArrayList<TaskDto>>();
         try {
