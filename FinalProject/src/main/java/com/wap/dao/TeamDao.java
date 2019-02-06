@@ -57,16 +57,11 @@ public class TeamDao {
     public WapResultData<ArrayList<TeamDto>> getAllSearch(String searchName, String orderName, String orderType) {
         var result = new WapResultData<ArrayList<TeamDto>>();
         try {
-            String sql = "SELECT id, name FROM wap.public.team WHERE upper(name) like ? order by ? ";
+            String sql = "SELECT id, name FROM wap.public.team WHERE upper(name) like ? order by " + orderName + " " + orderType;
 
-            if(orderType.equals("Desc"))
-                sql += "desc";
-
-            System.out.println(sql);
+            System.out.println(sql + ": like: "+searchName+ ":"+orderName + ":" + orderType);
             PreparedStatement ps = WapConnection.getConnection().prepareStatement(sql);
             ps.setString(1, "%" + searchName.toUpperCase() + "%");
-            ps.setString(2, orderName);
-            //ps.setString(3, orderType);
 
             ResultSet rs = ps.executeQuery();
             result.setData(new ArrayList<TeamDto>());

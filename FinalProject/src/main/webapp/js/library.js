@@ -45,7 +45,7 @@ $(document).ready(function () {
 
     function generateTeamTable(res) {
         for (let i = 0; i < res.data.length; i++) {
-            $('#teamListTable tbody').append('<tr><td>' + (i + 1) + '</td><td>'
+            $('#teamListTable tbody').append('<tr><td>' + res.data[i].id + '</td><td>'
                 + res.data[i].name
                 + '</td></tr>'
             );
