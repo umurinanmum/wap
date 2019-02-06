@@ -66,11 +66,32 @@ $(document).ready(function () {
 
 
     function loadInitialTasks() {
+
+
         $.get("Task", function (data, status) {
             var res = JSON.parse(data);
             if (res.statusCode === "SUCCESS") {
                 generateTaskTable(res);
                 loadUsers();
+                $("#orderedByRequiredBy").change(function() {
+                    if(this.checked) {
+                        $.get("Task?orderedByRequiredBy=" + true, function (data, status) {
+                            var res = JSON.parse(data);
+                            if (res.statusCode === "SUCCESS") {
+                                $("#taskListTableBody").empty();
+                                generateTaskTable(res);
+                            }
+                        });
+                    }else{
+                        $.get("Task" , function (data, status) {
+                            var res = JSON.parse(data);
+                            if (res.statusCode === "SUCCESS") {
+                                $("#taskListTableBody").empty();
+                                generateTaskTable(res);
+                            }
+                        });
+                    }
+                });
                 $("#userSelectForFilter").change(function () {
                     let idUser = this.value;
                     if (idUser === "sel") {

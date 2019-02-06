@@ -25,6 +25,9 @@
                             <option value="sel">Please Select</option>
                         </select>
                     </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" name="orderedByRequiredBy" id="orderedByRequiredBy" value="Order By Due Date">Order By Due Date</input>
+                    </div>
                 </div>
             </div>
             <div class="row">
