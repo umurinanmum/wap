@@ -115,7 +115,7 @@ $(document).ready(function () {
 
     function generateTaskTable(res) {
         for (let i = 0; i < res.data.length; i++) {
-            $('#taskListTable tbody').append('<tr><td>' + (i + 1) + '</td><td>'
+            $('#taskListTable tbody').append('<tr id="taskRow'+ i +'"><td>' + (i + 1) + '</td><td>'
                 + res.data[i].name
                 + '</td><td>'
                 + getDate(res.data[i].requiredBy)
@@ -134,6 +134,14 @@ $(document).ready(function () {
                 '<button type="button" class="btn btn-success" id="addNoteButton' + i + '"lang="' + res.data[i].id + '" data-toggle="modal" data-target="#addEditNoteModal" data-backdrop="false"><span class="glyphicon glyphicon-share"></span></button>' +
                 '<button class="btn btn-danger" id="deleteButton' + i + '"lang="' + res.data[i].id + '"><span class="glyphicon glyphicon-remove-sign"></span></button> </td></tr>'
             );
+
+            if(res.data[i].completed) {
+                $("#taskRow"+i).css("background-color","#2ECC40");
+            }
+
+            if(getDate(res.data[i].requiredBy) > getDate((new Date()).getTime())) {
+                $("#taskRow"+i).css("background-color","#FF4136");
+            }
             var deleteButtonId = "deleteButton" + i;
             $("#" + deleteButtonId).click(function () {
                 let id = parseInt(this.lang);
