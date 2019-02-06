@@ -219,7 +219,7 @@
                             <input type="reset" value="Reset" class="form-control btn-success"/>
                         </div>
                         <div class="col-md-6">
-                            <input type="button" value="Save" id="updateTaskSaveButton"
+                            <input type="submit" value="Save" id="updateTaskSaveButton"
                                    class="form-control btn-primary"/>
                         </div>
                         <div class="col-md-2">
@@ -240,7 +240,7 @@
                 <h4 class="modal-title">Add/Edit Note</h4>
             </div>
             <div class="modal-body">
-                <form>F
+                <form>
                     <div class="row">
                         <div class="col-md-3">
                             <p>Note : </p>

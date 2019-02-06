@@ -111,7 +111,7 @@ $(document).ready(function () {
                 + '</td><td>'
                 + res.data[i].completed
                 + '</td><td><button class="btn btn-primary" id="editButton' + i + '"lang="' + res.data[i].id + '" data-toggle="modal" data-target="#updateTaskModal" data-backdrop="false"><span class="glyphicon glyphicon-edit"/></button>' +
-                '<button class="btn btn-info" id="noteButton' + i + '"lang="' + res.data[i].id + '"><span class="glyphicon glyphicon-comment"></span></button>' +
+                '<button class="btn btn-info" id="noteButton' + i + '"lang="' + res.data[i].id + '"><span class="glyphicon glyphicon-comment"data-toggle="modal" data-target="#noteListModal" data-backdrop="false"></span></button>' +
                 '<button type="button" class="btn btn-success" id="addNoteButton' + i + '"lang="' + res.data[i].id + '" data-toggle="modal" data-target="#addEditNoteModal" data-backdrop="false"><span class="glyphicon glyphicon-share"></span></button>' +
                 '<button class="btn btn-danger" id="deleteButton' + i + '"lang="' + res.data[i].id + '"><span class="glyphicon glyphicon-remove-sign"></span></button> </td></tr>'
             );
@@ -179,33 +179,142 @@ $(document).ready(function () {
                 $("#idTask").val(id);
             });
 
-            var noteButtonId = "notesButton" + i;
+            var noteButtonId = "noteButton" + i;
             $("#" + noteButtonId).click(function () {
                 //$("#notesDiv").show();
                 let id = parseInt(this.lang);
                 $("#idTask").val(id);
-                /*$.ajax({
+
+                $.ajax({
                     url: 'Note?idTask=' + id,
                     method: 'get',
                     contentType: 'application/json',
                     success: function (result) {
                         var res = JSON.parse(result);
-                        console.log(res);
+                        $('#notes').empty();
                         for (var j = 0; j < res.data.length; j++) {
-                            $('#noteListTable tbody').append('<tr><td>' + (j + 1) + '</td><td>'
-                                + res.data[j].note
-                                + '</td><td>'
-                                + getDate(res.data[j].date)
-                                + '</td></tr>'
-                            );
+                            $('#notes').append('<div class="row">\n' +
+                                '                                <div class="media">' +
+                                '                                    <div class="media-left">' +
+                                '                                        <img src="images/note.png" class="media-object" style="width:50px">' +
+                                '                                    </div>' +
+                                '                                    <div class="media-body">' +
+                                '                                        <h4 class="media-heading">' +
+                                '                                            <small>' +
+                                '                                                <i>Posted on ' + getDate(res.data[j].date) + '</i></small>\n' +
+                                '                                        </h4>' +
+                                '                                        <p>' + res.data[j].note + '</p>' +
+                                '                                    </div>' +
+                                '                                </div>' +
+                                '                            </div>');
+
                         }
                     },
                     error: function (request, msg, error) {
                         // handle failure
                     }
-                });*/
+                });
             });
         }
+
+        $('#newTaskSaveButton').click(function () {
+            var taskDto = {
+                "name": $("input[name='nameNewTask']").val(),
+                "requiredBy": $("input[name='dateNewTask']").val(),
+                "category": {
+                    "id": $("select[name='categoryNewTask']").val()
+                },
+                "priority": $("input[name='priorityNewTask']").val(),
+                "user": {
+                    "id": $("select[name='usersNewTask']").val()
+                },
+                "completed": document.getElementById('completedNewTask').checked
+            };
+
+            //send to server
+            $.ajax({
+                type: 'post',
+                url: 'Task',
+                dataType: 'JSON',
+                data: {
+                    source: JSON.stringify(taskDto)
+                },
+                success: function (data) {
+                    if (data.statusCode === "SUCCESS") {
+                        location.reload();
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+
+        $('#noteSaveButton').click(function () {
+            let idTask = $('#idTask').val();
+            var noteDto = {
+                "note": $("textarea[name='note']").val(),
+                "date": $("input[name='dateNote']").val(),
+                "taskDto": {
+                    "id": idTask
+                }
+            };
+
+            //send to server
+            $.ajax({
+                type: 'post',
+                url: 'Note',
+                dataType: 'JSON',
+                data: {
+                    source: JSON.stringify(noteDto)
+                },
+                success: function (data) {
+                    if (data.statusCode === "SUCCESS") {
+                        //location.reload();
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+
+
+        $('#updateTaskSaveButton').click(function () {
+            let idTask = $('#idTask').val();
+            var taskDto = {
+                "id": idTask,
+                "name": $("input[name='name']").val(),
+                "requiredBy": $("input[name='date']").val(),
+                "category": {
+                    "id": $("select[name='category']").val()
+                },
+                "priority": $("input[name='priority']").val(),
+                "user": {
+                    "id": $("select[name='users']").val()
+                },
+                "completed": document.getElementById('completedUpdate').checked
+            };
+
+            //send to server
+            $.ajax({
+                type: 'post',
+                url: 'Task',
+                dataType: 'JSON',
+                data: {
+                    source: JSON.stringify(taskDto)
+                },
+                success: function (data) {
+                    if (data.statusCode === "SUCCESS") {
+                        location.reload();
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+
     }
 
     function getDate(dateVal) {
@@ -216,103 +325,6 @@ $(document).ready(function () {
     }
 
 
-    $('#newTaskSaveButton').click(function () {
-        var taskDto = {
-            "name": $("input[name='nameNewTask']").val(),
-            "requiredBy": $("input[name='dateNewTask']").val(),
-            "category": {
-                "id": $("select[name='categoryNewTask']").val()
-            },
-            "priority": $("input[name='priorityNewTask']").val(),
-            "user": {
-                "id": $("select[name='usersNewTask']").val()
-            },
-            "completed": document.getElementById('completedNewTask').checked
-        };
-
-        //send to server
-        $.ajax({
-            type: 'post',
-            url: 'Task',
-            dataType: 'JSON',
-            data: {
-                source: JSON.stringify(taskDto)
-            },
-            success: function (data) {
-                if (data.statusCode === "SUCCESS") {
-                    location.reload();
-                }
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    });
-
-    $('#noteSaveButton').click(function () {
-        let idTask = $('#idTask').val();
-        var noteDto = {
-            "note": $("textarea[name='note']").val(),
-            "date": $("input[name='dateNote']").val(),
-            "taskDto": {
-                "id": idTask
-            }
-        };
-
-        //send to server
-        $.ajax({
-            type: 'post',
-            url: 'Note',
-            dataType: 'JSON',
-            data: {
-                source: JSON.stringify(noteDto)
-            },
-            success: function (data) {
-                if (data.statusCode === "SUCCESS") {
-                    //location.reload();
-                }
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    });
-
-
-    $('#updateTaskSaveButton').click(function () {
-        let idTask = $('#idTask').val();
-        var taskDto = {
-            "id": idTask,
-            "name": $("input[name='name']").val(),
-            "requiredBy": $("input[name='date']").val(),
-            "category": {
-                "id": $("select[name='category']").val()
-            },
-            "priority": $("input[name='priority']").val(),
-            "user": {
-                "id": $("select[name='users']").val()
-            },
-            "completed": document.getElementById('completedUpdate').checked
-        };
-
-        //send to server
-        $.ajax({
-            type: 'post',
-            url: 'Task',
-            dataType: 'JSON',
-            data: {
-                source: JSON.stringify(taskDto)
-            },
-            success: function (data) {
-                if (data.statusCode === "SUCCESS") {
-                    location.reload();
-                }
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    });
 
     // $.get("Team", function (data, status) {
     //     var res = JSON.parse(data);
