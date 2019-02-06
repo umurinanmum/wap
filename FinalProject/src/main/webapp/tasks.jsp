@@ -6,8 +6,7 @@
 </head>
 <body>
 
-<div class="col-sm-10" id="mainDiv">
-    <div class="panel panel-info">
+<div class="panel panel-info">
         <div class="panel-heading"><b>Task List</b></div>
         <div class="panel-body">
             <div class="row">
@@ -60,8 +59,6 @@
 
         </div>
     </div>
-</div>
-
 
 <div class="modal fade" id="newTaskModal" role="dialog">
     <div class="modal-dialog">
