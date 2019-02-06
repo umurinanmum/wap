@@ -139,7 +139,7 @@ $(document).ready(function () {
                 $("#taskRow"+i).css("background-color","#2ECC40");
             }
 
-            if(getDate(res.data[i].requiredBy) > getDate((new Date()).getTime())) {
+            if(getDate(res.data[i].requiredBy) < getDate((new Date()).getTime())) {
                 $("#taskRow"+i).css("background-color","#FF4136");
             }
             var deleteButtonId = "deleteButton" + i;
