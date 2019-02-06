@@ -21,21 +21,19 @@ public class TeamController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String subAction = req.getParameter("subAction");
         String idTeamStr = req.getParameter("idTeam");
-        //System.out.println(subAction);
+        TeamService teamService = new TeamService();
 
-        /*Search team with some parameters*/
+        /*search team with some parameters*/
         if(!StringHelper.isNullOrEmpty(subAction)){
             if(subAction.equals("Search")) {
                 String teamSearchByName = req.getParameter("teamSearchByName");
                 String teamSortBy = req.getParameter("teamSortBy");
                 String teamSortOrder = req.getParameter("teamSortOrder");
-                TeamService teamService = new TeamService();
                 var result = teamService.getAllSearch(teamSearchByName, teamSortBy, teamSortOrder);
                 resp.getWriter().write(result.asJson());
             }
         }
         else {
-            TeamService teamService = new TeamService();
             if (StringHelper.isNullOrEmpty(idTeamStr)) {
                 var result = teamService.getAll();
                 resp.getWriter().write(result.asJson());

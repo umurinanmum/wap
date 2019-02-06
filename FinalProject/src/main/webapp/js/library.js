@@ -33,7 +33,6 @@ $(document).ready(function () {
                         if (res.statusCode === "SUCCESS") {
                             $("#teamListTableBody").empty();
                             generateTeamTable(res);
-                            //location.reload();
                         }
                     },
                     error: function (request, msg, error) {
@@ -51,11 +50,7 @@ $(document).ready(function () {
                 + '</td></tr>'
             );
         }
-
-
     }
-
-
 
     $("a[name='idMemberM']").click(function (event) {
         $("#mainDiv").load("userProf.jsp", function () {

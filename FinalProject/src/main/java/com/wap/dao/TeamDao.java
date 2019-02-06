@@ -59,7 +59,7 @@ public class TeamDao {
         try {
             String sql = "SELECT id, name FROM wap.public.team WHERE upper(name) like ? order by ? ";
 
-            if(orderType.equals("desc"))
+            if(orderType.equals("Desc"))
                 sql += "desc";
 
             System.out.println(sql);
