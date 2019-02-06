@@ -93,7 +93,8 @@
                         <input type="text" name="id" id="idUser"/>
                     </div>
 
-                    <button type="button" id="joinTeam" class="btn btn-primary btn-block">Join Team</button>
+                    <button type="button" id="saveUserBtn" class="btn btn-primary">Save</button>
+                    <button type="button" id="joinTeam" class="btn btn-primary">Join Team</button>
                 </form>
             </div>
             <div class="col-md-6">

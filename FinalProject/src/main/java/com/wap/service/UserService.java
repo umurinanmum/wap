@@ -18,4 +18,8 @@ public class UserService {
     public WapResultData<UserDto> getById(int id) {
         return userDao.getById(id);
     }
+
+    public WapResult save(UserDto userDto){
+        return userDao.save(userDto);
+    }
 }

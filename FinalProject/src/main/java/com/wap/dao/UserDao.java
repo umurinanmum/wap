@@ -10,9 +10,38 @@ import lombok.var;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 
 public class UserDao {
+
+    public WapResult save(UserDto userDto) {
+        var result = new WapResult();
+        try {
+            String query = "INSERT INTO wap.public.users (id, name, lastname, username, password, mail, phone, lat, longg, id_team) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = WapConnection.getConnection().prepareStatement(query);
+            ps.setString(1, userDto.getName());
+            ps.setString(2, userDto.getLastname());
+            ps.setString(3, userDto.getUsername());
+            ps.setString(4, userDto.getPassword());
+            ps.setString(5, userDto.getMail());
+            ps.setString(6, userDto.getPhone());
+            ps.setString(7, userDto.getLat());
+            ps.setString(8, userDto.getLongg());
+            if (userDto.getTeam() != null) {
+                ps.setInt(9, userDto.getTeam().getId());
+            } else {
+                ps.setNull(9, Types.INTEGER);
+            }
+
+            ps.executeUpdate();
+            result.success();
+
+        } catch (SQLException e) {
+
+        }
+        return result;
+    }
 
     public WapResultData<ArrayList<UserDto>> getAll() {
         var result = new WapResultData<ArrayList<UserDto>>();

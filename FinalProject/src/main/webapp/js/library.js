@@ -62,9 +62,6 @@ $(document).ready(function () {
     }
 
 
-
-
-
     function loadInitialTasks() {
 
 
@@ -73,8 +70,8 @@ $(document).ready(function () {
             if (res.statusCode === "SUCCESS") {
                 generateTaskTable(res);
                 loadUsers();
-                $("#orderedByRequiredBy").change(function() {
-                    if(this.checked) {
+                $("#orderedByRequiredBy").change(function () {
+                    if (this.checked) {
                         $.get("Task?orderedByRequiredBy=" + true, function (data, status) {
                             var res = JSON.parse(data);
                             if (res.statusCode === "SUCCESS") {
@@ -82,8 +79,8 @@ $(document).ready(function () {
                                 generateTaskTable(res);
                             }
                         });
-                    }else{
-                        $.get("Task" , function (data, status) {
+                    } else {
+                        $.get("Task", function (data, status) {
                             var res = JSON.parse(data);
                             if (res.statusCode === "SUCCESS") {
                                 $("#taskListTableBody").empty();
@@ -347,7 +344,6 @@ $(document).ready(function () {
     }
 
 
-
     // $.get("Team", function (data, status) {
     //     var res = JSON.parse(data);
     //     if (res.statusCode === "SUCCESS") {
@@ -388,6 +384,37 @@ $(document).ready(function () {
                 url: 'Team?idTeam=' + idTeam + "&idUser=" + idUser,
                 method: 'POST',
                 contentType: 'application/json',
+                success: function (data) {
+
+                },
+                error: function (request, msg, error) {
+                    // handle failure
+                }
+            });
+        });
+
+        $("#saveUserBtn").click(function () {
+
+            var userDto = {
+                "name": $("#nameP").val(),
+                "lastname": $("#lastnameP").val(),
+                "username": $("#usernameP").val(),
+                "mail": $("#mailP").val(),
+                "phone": $("#phoneP").val(),
+                "lat": $("#latP").val(),
+                "longg": $("#longP").val(),
+                "team": {
+                    "id": $("select[name='teams']").val()==="sel" ? null : $("select[name='teams']").val()
+                }
+            };
+
+
+            $.ajax({
+                url: 'User',
+                method: 'POST',
+                data: {
+                    source: JSON.stringify(userDto)
+                },
                 success: function (data) {
 
                 },

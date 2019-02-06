@@ -1,9 +1,14 @@
 package com.wap.controller;
 
+import com.wap.dto.TaskDto;
+import com.wap.dto.UserDto;
+import com.wap.helper.JsonHelper;
 import com.wap.helper.StringHelper;
+import com.wap.service.TaskService;
 import com.wap.service.UserService;
 import lombok.var;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +34,19 @@ public class UserController extends HttpServlet {
         } else {
             var result = userService.getAll();
             resp.getWriter().write(result.asJson());
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        String json = req.getParameter("source");
+        try {
+            UserDto userDto = (UserDto) JsonHelper.fromJson(json, UserDto.class);
+            UserService userService = new UserService();
+            var result = userService.save(userDto);
+            resp.getWriter().write(result.asJson());
+        } catch (Exception e) {
+
         }
     }
 }
