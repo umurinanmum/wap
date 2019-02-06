@@ -14,24 +14,24 @@
                     <div class="col-md-12">
                         <div class="col-md-2">
                             <label>Search name: </label><br>
-                            <input type="text" id="teamSearchByName" name="teamSearchByName" placeholder="Name" value="">
+                            <input type="text" id="teamSearchByName" name="teamSearchByName" placeholder="Name" value="" class="form-control">
                         </div>
                         <div class="col-md-2">
                             <label>Sort by: </label><br>
-                            <select name="teamSortBy" id="teamSortBy">
+                            <select name="teamSortBy" id="teamSortBy" class="form-control">
                                 <option value="id">id</option>
                                 <option value="name">Name</option>
                             </select>
                         </div>
                         <div class="col-md-2">
                             <label>Order by: </label><br>
-                            <select name="teamSortOrder" id="teamSortOrder">
+                            <select name="teamSortOrder" id="teamSortOrder" class="form-control">
                                 <option value="asc">Ascending</option>
                                 <option value="desc">Descending</option>
                             </select>
                         </div>
                         <div class="col-md-2"><br>
-                            <button type="button" class="btn btn-primary" id="searchTeamBtn" name="searchTeamBtn" title="Search team">Search</button>
+                            <button type="button" class="btn btn-primary form-control" id="searchTeamBtn" name="searchTeamBtn" title="Search team">Search</button>
                         </div>
                     </div>
                 </form>

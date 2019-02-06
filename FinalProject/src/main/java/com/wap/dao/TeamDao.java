@@ -59,7 +59,7 @@ public class TeamDao {
         try {
             String sql = "SELECT id, name FROM wap.public.team WHERE upper(name) like ? order by " + orderName + " " + orderType;
 
-            System.out.println(sql + ": like: "+searchName+ ":"+orderName + ":" + orderType);
+            //System.out.println(sql + ": like: "+searchName+ ":"+orderName + ":" + orderType);
             PreparedStatement ps = WapConnection.getConnection().prepareStatement(sql);
             ps.setString(1, "%" + searchName.toUpperCase() + "%");
 
