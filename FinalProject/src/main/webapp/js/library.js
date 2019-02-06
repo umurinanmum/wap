@@ -62,26 +62,7 @@ $(document).ready(function () {
     }
 
 
-    $("#userSelectForFilter").change(function () {
-        let idUser = this.value;
-        if (idUser === "sel") {
-            $.get("Task", function (data, status) {
-                var res = JSON.parse(data);
-                if (res.statusCode === "SUCCESS") {
-                    $("#taskListTableBody").empty();
-                    generateTaskTable(res);
-                }
-            });
-        } else {
-            $.get("Task?idUser=" + idUser, function (data, status) {
-                var res = JSON.parse(data);
-                if (res.statusCode === "SUCCESS") {
-                    $("#taskListTableBody").empty();
-                    generateTaskTable(res);
-                }
-            });
-        }
-    });
+
 
 
     function loadInitialTasks() {
@@ -90,6 +71,26 @@ $(document).ready(function () {
             if (res.statusCode === "SUCCESS") {
                 generateTaskTable(res);
                 loadUsers();
+                $("#userSelectForFilter").change(function () {
+                    let idUser = this.value;
+                    if (idUser === "sel") {
+                        $.get("Task", function (data, status) {
+                            var res = JSON.parse(data);
+                            if (res.statusCode === "SUCCESS") {
+                                $("#taskListTableBody").empty();
+                                generateTaskTable(res);
+                            }
+                        });
+                    } else {
+                        $.get("Task?idUser=" + idUser, function (data, status) {
+                            var res = JSON.parse(data);
+                            if (res.statusCode === "SUCCESS") {
+                                $("#taskListTableBody").empty();
+                                generateTaskTable(res);
+                            }
+                        });
+                    }
+                });
             }
         });
     }
