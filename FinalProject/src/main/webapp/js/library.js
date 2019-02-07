@@ -90,16 +90,19 @@ $(document).ready(function () {
         loadInitialTasks();
     });
 
-    $.get("Category", function (data, status) {
-        var res = JSON.parse(data);
-        if (res.statusCode === "SUCCESS") {
-            for (var i = 0; i < res.data.length; i++) {
-                $('#categorySelectNew option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
-                $('#categorySelectUpdate option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
-            }
-        }
-    });
 
+
+    function loadCategories() {
+        $.get("Category", function (data, status) {
+            var res = JSON.parse(data);
+            if (res.statusCode === "SUCCESS") {
+                for (var i = 0; i < res.data.length; i++) {
+                    $('#categorySelectNew option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                    $('#categorySelectUpdate option:last').after('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+                }
+            }
+        });
+    }
     function loadUsers() {
         $.get("User", function (data, status) {
             var res = JSON.parse(data);
@@ -122,6 +125,8 @@ $(document).ready(function () {
             if (res.statusCode === "SUCCESS") {
                 generateTaskTable(res);
                 loadUsers();
+                loadCategories();
+
                 $("#orderedByRequiredBy").change(function () {
                     if (this.checked) {
                         $.get("Task?orderedByRequiredBy=" + true, function (data, status) {
